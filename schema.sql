@@ -247,3 +247,39 @@ CREATE TABLE Participates (
                                   ON UPDATE CASCADE
                                   ON DELETE CASCADE
 );
+
+INSERT INTO Event
+VALUES (0, "Penguin Encounter", 2021-10-31, 16:00:00, 17:59:59),
+       (1, "Dolphin Show", 2021-11-06, 13:30:00, 13:59:59),
+       (2, "Vancouver Elementary Outreach", 2022-01-03, 13:00:00, 14:59:59),
+       (3, "UBC Biology 100 Field Trip", 2022-01-17, 10:30:00, 13:29:59),
+       (4, "Krystal's Birthday", 2021-12-14, 13:00:00, 14:59:59),
+       (5, "Mea's Birthday", 2022-01-29, 15:00:00, 16:59:59),
+       (6, "Volunteer Cleanup", 2021-11-15, 11:30:00, 13:59:59),
+       (7, "Marine Mammal Rescue Exhibit", 2021-11-15, 14:00:00, 15:59:59),
+       (8, "UBC Elementary Field Trip", 2022-02-02, 09:30:00, 14:59:59),
+       (9, "Virtual Aquarium Tour", 2021-12-28, 12:30:00, 13:59:59);
+
+INSERT INTO Aquarium_Event
+VALUES (0, "Interactive", "Penguin Encounter Room"),
+       (1, "Entertainment", "Dolphin Tank"),
+       (6, "Volunteer", "Stanley Park"),
+       (7, "Educational", "Seal Rescue Enclosure"),
+       (9, "Virtual", "Zoom");
+
+INSERT INTO Location_Size
+VALUES ("Penguin Encounter Room", 20),
+       ("Dolphin Tank", 150),
+       ("Stanley Park", 200),
+       ("Seal Rescue Enclosure", 40),
+       ("Zoom", 20);
+
+INSERT INTO Event_Ticket_Rates
+VALUES ("Interactive", 40),
+       ("Entertainment", 35),
+       ("Volunteer", 0),
+       ("Educational", 20),
+       ("Virtual", 25);
+
+-- INSERT INTO Customer_Event
+-- VALUES ()
