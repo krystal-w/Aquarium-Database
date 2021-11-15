@@ -1,435 +1,456 @@
-CREATE TABLE Event (
-                       ID: INT AUTO_INCREMENT,
-                       name: VARCHAR(255),
-                       date: DATE,
-                       start_time: TIME,
-                       end_time: TIME,
-                       PRIMARY KEY (ID)
+DROP TABLE Event CASCADE CONSTRAINTS;
+DROP TABLE Aquarium_Event CASCADE CONSTRAINTS;
+DROP TABLE Location_Size CASCADE CONSTRAINTS;
+DROP TABLE Event_Ticket_Rates CASCADE CONSTRAINTS;
+DROP TABLE Customer_Event CASCADE CONSTRAINTS;
+DROP TABLE Event_Booking_Rates CASCADE CONSTRAINTS;
+DROP TABLE Customer CASCADE CONSTRAINTS;
+DROP TABLE Employee CASCADE CONSTRAINTS;
+DROP TABLE Biologist CASCADE CONSTRAINTS;
+DROP TABLE Department_Location CASCADE CONSTRAINTS;
+DROP TABLE Checkup CASCADE CONSTRAINTS;
+DROP TABLE Checkup_Priority CASCADE CONSTRAINTS;
+DROP TABLE Animal CASCADE CONSTRAINTS;
+DROP TABLE Aquatic_Animal CASCADE CONSTRAINTS;
+DROP TABLE Land_Animal CASCADE CONSTRAINTS;
+DROP TABLE Schedule CASCADE CONSTRAINTS;
+DROP TABLE Feeding_Schedule CASCADE CONSTRAINTS;
+DROP TABLE Cleaning_Schedule CASCADE CONSTRAINTS;
+DROP TABLE Enclosure CASCADE CONSTRAINTS;
+DROP TABLE Leads CASCADE CONSTRAINTS;
+DROP TABLE Cares_For CASCADE CONSTRAINTS;
+DROP TABLE Is_For CASCADE CONSTRAINTS;
+DROP TABLE Is_Assigned CASCADE CONSTRAINTS;
+DROP TABLE Participates CASCADE CONSTRAINTS;
+
+CREATE TABLE Event
+(
+    ID INT, -- AUTO_INCREMENT,
+    name VARCHAR(255),
+    event_date DATE,
+    start_time TIMESTAMP,
+    end_time TIMESTAMP,
+    PRIMARY KEY (ID)
 );
 
-CREATE TABLE Aquarium_Event (
-                                event_id: INT,
-                                type: VARCHAR(255),
-                                location: VARCHAR(255),
-                                PRIMARY KEY (event_id),
-                                FOREIGN KEY (event_id) REFERENCES Event(ID)
-                                    ON UPDATE CASCADE
-                                    ON DELETE CASCADE,
-                                FOREIGN KEY (type) REFERENCES Event_Ticket_Rates(type)
-                                    ON UPDATE CASCADE
-                                    ON DELETE NO ACTION,
-                                FOREIGN KEY (location) REFERENCES Location_Size(location)
-                                    ON UPDATE CASCADE
-                                    ON DELETE NO ACTION
+CREATE TABLE Location_Size
+(
+    location VARCHAR(255),
+    capacity INT,
+    PRIMARY KEY (location)
 );
 
-CREATE TABLE Location_Size (
-                               location: VARCHAR(255),
-                               capacity: INT,
-                               PRIMARY KEY (location)
+CREATE TABLE Event_Ticket_Rates
+(
+    type VARCHAR(255),
+    ticket_price INT,
+    PRIMARY KEY (type)
 );
 
-
-
-
-CREATE TABLE Event_Ticket_Rates (
-                                    type:VARCHAR(255),
-                                    ticket_price: INT,
-                                    PRIMARY KEY (type)
+CREATE TABLE Event_Booking_Rates
+(
+    group_size INT,
+    cost INT,
+    PRIMARY KEY (group_size)
 );
 
-CREATE TABLE Customer_Event (
-                                event_id: INT,
-                                group_size: INT,
-                                customer_id: INT NOT NULL,
-                                PRIMARY KEY (event_id),
-                                FOREIGN KEY (event_id) REFERENCES Event(ID)
-                                    ON UPDATE CASCADE
-                                    ON DELETE CASCADE,
-                                FOREIGN KEY (group_size) REFERENCES Event_Booking_Rates(group_size)
-                                    ON UPDATE CASCADE
-                                    ON DELETE NO ACTION,
-                                FOREIGN KEY (customer_id) REFERENCES Customer(ID)
-                                    ON UPDATE CASCADE
-                                    ON DELETE NO ACTION
+CREATE TABLE Aquarium_Event
+(
+    event_id INT,
+    type VARCHAR(255),
+    location VARCHAR(255),
+    PRIMARY KEY (event_id),
+    FOREIGN KEY (event_id) REFERENCES Event(ID)
+--         ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    FOREIGN KEY (type) REFERENCES Event_Ticket_Rates(type),
+--         ON UPDATE CASCADE
+--         ON DELETE NO ACTION,
+    FOREIGN KEY (location) REFERENCES Location_Size(location)
+--         ON UPDATE CASCADE
+--         ON DELETE NO ACTION
 );
 
-CREATE TABLE Event_Booking_Rates (
-                                     group_size: INT,
-                                     cost: INT
-                                         PRIMARY KEY (group_size)
+CREATE TABLE Customer
+(
+    ID INT, -- AUTO_INCREMENT,
+    phone# VARCHAR(255) UNIQUE,
+    email VARCHAR(255) UNIQUE,
+    last_name VARCHAR(255),
+    first_name VARCHAR(255),
+    PRIMARY KEY (ID)
 );
 
-CREATE TABLE Customer (
-                          ID: INT AUTO_INCREMENT,
-                          phone#: VARCHAR(255) UNIQUE,
-                          email: VARCHAR(255) UNIQUE,
-                          last_name: VARCHAR(255),
-                          first_name: VARCHAR(255),
-                          PRIMARY KEY (ID),
+CREATE TABLE Customer_Event
+(
+    event_id INT,
+    group_size INT,
+    customer_id INT NOT NULL,
+    PRIMARY KEY (event_id),
+    FOREIGN KEY (event_id) REFERENCES Event(ID)
+--         ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    FOREIGN KEY (group_size) REFERENCES Event_Booking_Rates(group_size),
+--         ON UPDATE CASCADE
+--         ON DELETE NO ACTION,
+    FOREIGN KEY (customer_id) REFERENCES Customer(ID)
+--         ON UPDATE CASCADE
+--         ON DELETE NO ACTION
 );
 
-CREATE TABLE Employee (
-                          ID: INT AUTO_INCREMENT,
-                          phone#: VARCHAR(255) UNIQUE,
-                          first_name: VARCHAR(255),
-                          email: VARCHAR(255) UNIQUE,
-                          last_name: CHAR(50),
-                          PRIMARY KEY (ID)
-);
-CREATE TABLE Biologist (
-                           employee_id: INT,
-                           specialty: VARCHAR(255),
-                           department: VARCHAR(255),
-                           PRIMARY KEY (employee_id),
-                           FOREIGN KEY (employee_id) REFERENCES Employee(ID)
-                               ON UPDATE CASCADE
-                               ON DELETE CASCADE,
-                           FOREIGN KEY (department) REFERENCES Department_Details(department)
-                               ON UPDATE CASCADE
-                               ON DELETE NO ACTION
+CREATE TABLE Employee
+(
+    ID INT, -- AUTO_INCREMENT,
+    phone# VARCHAR(255) UNIQUE,
+    first_name VARCHAR(255),
+    email VARCHAR(255) UNIQUE,
+    last_name CHAR(50),
+    PRIMARY KEY (ID)
 );
 
-CREATE TABLE Department_Location (
-                                     department: VARCHAR(255),
-                                     office_location: VARCHAR(255)
-                                         PRIMARY KEY (department)
+CREATE TABLE Department_Location
+(
+    department VARCHAR(255),
+    office_location VARCHAR(255),
+    PRIMARY KEY (department)
 );
 
-CREATE TABLE Checkup (
-                         ID: INT AUTO_INCREMENT,
-                         type: VARCHAR(255),
-                         date: DATE,
-                         time: TIME,
-                         biologist_id: INT NOT NULL,
-                         animal_id: INT NOT NULL,
-                         PRIMARY KEY (ID),
-                         FOREIGN KEY (type) REFERENCES Checkup_Priority(type)
-                             ON UPDATE CASCADE
-                             ON DELETE NO ACTION,
-                         FOREIGN KEY (biologist_id) REFERENCES Biologist(ID)
-                             ON UPDATE CASCADE
-                             ON DELETE CASCADE,
-                         FOREIGN KEY (animal_id) REFERENCES Animal(ID)
-                             ON UPDATE CASCADE
-                             ON DELETE CASCADE
+CREATE TABLE Biologist
+(
+    employee_id INT,
+    specialty VARCHAR(255),
+    department VARCHAR(255),
+    PRIMARY KEY (employee_id),
+    FOREIGN KEY (employee_id) REFERENCES Employee(ID)
+--         ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    FOREIGN KEY (department) REFERENCES Department_Location(department)
+--         ON UPDATE CASCADE
+--         ON DELETE NO ACTION
 );
 
-CREATE TABLE Checkup_Priority (
-                                  type: VARCHAR(255),
-                                  priority: INT,
-                                  PRIMARY KEY (type)
+CREATE TABLE Enclosure
+(
+    ID INT, -- AUTO_INCREMENT,
+    type VARCHAR(255),
+    temperature INT,
+    PRIMARY KEY (ID)
+);
+--
+CREATE TABLE Animal
+(
+    ID INT, -- AUTO_INCREMENT,
+    enclosure_id INT NOT NULL,
+    species VARCHAR(255),
+    health VARCHAR(255),
+    PRIMARY KEY (ID),
+    FOREIGN KEY (enclosure_id) REFERENCES Enclosure(ID)
+--         ON UPDATE CASCADE
+--         ON DELETE NO ACTION
 );
 
-
-CREATE TABLE Animal (
-                        ID: INT AUTO_INCREMENT,
-                        enclosure_id: INT NOT NULL,
-                        species: VARCHAR(255),
-                        health: VARCHAR(255),
-                        PRIMARY KEY (ID),
-                        FOREIGN KEY (enclosure_id) REFERENCES Enclosure (ID)
-                            ON UPDATE CASCADE
-                            ON DELETE NO ACTION
+CREATE TABLE Aquatic_Animal
+(
+    animal_id INT,
+    water_type VARCHAR(255),
+    water_temp INT,
+    PRIMARY KEY (animal_id),
+    FOREIGN KEY (animal_id) REFERENCES Animal(ID)
+--         ON UPDATE CASCADE
+        ON DELETE CASCADE
 );
 
-CREATE TABLE Aquatic_Animal (
-                                animal_id: INT,
-                                water_temp: INT,
-                                water_type: VARCHAR(255),
-                                PRIMARY KEY (animal_id),
-                                FOREIGN KEY (animal_id) REFERENCES Animal(ID)
-                                    ON UPDATE CASCADE
-                                    ON DELETE CASCADE
+CREATE TABLE Land_Animal
+(
+    animal_id INT,
+    environment VARCHAR(255),
+    PRIMARY KEY (animal_id),
+    FOREIGN KEY (animal_id) REFERENCES Animal(ID)
+--         ON UPDATE CASCADE
+        ON DELETE CASCADE
 );
 
-CREATE TABLE Land_Animal (
-                             animal_id: INT,
-                             environment: VARCHAR(255),
-                             PRIMARY KEY (animal_id),
-                             FOREIGN KEY (animal_id) REFERENCES Animal(ID)
-                                 ON UPDATE CASCADE
-                                 ON DELETE CASCADE
+CREATE TABLE Checkup_Priority
+(
+    type VARCHAR(255),
+    priority INT,
+    PRIMARY KEY (type)
 );
 
-CREATE TABLE Schedule (
-                          ID: INT AUTO_INCREMENT,
-                          frequency: INT,
-                          time: TIME,
-                          PRIMARY KEY (ID)
+CREATE TABLE Checkup
+(
+    ID INT, -- AUTO_INCREMENT,
+    type VARCHAR(255),
+    checkup_date DATE,
+    checkup_time TIMESTAMP,
+    biologist_id INT NOT NULL,
+    animal_id INT NOT NULL,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (type) REFERENCES Checkup_Priority(type),
+--         ON UPDATE CASCADE
+--         ON DELETE NO ACTION,
+    FOREIGN KEY (biologist_id) REFERENCES Biologist(employee_id)
+--         ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    FOREIGN KEY (animal_id) REFERENCES Animal(ID)
+--         ON UPDATE CASCADE
+        ON DELETE CASCADE
 );
 
-CREATE TABLE Feeding_Schedule (
-                                  schedule_id: INT,
-                                  food_type: VARCHAR(255),
-                                  PRIMARY KEY (schedule_id),
-                                  FOREIGN KEY (schedule_id) REFERENCES Schedule(ID)
-                                      ON UPDATE CASCADE
-                                      ON DELETE CASCADE
-);
-CREATE TABLE Cleaning_Schedule (
-                                   schedule_id: INT,
-                                   enclosure_id: VARCHAR(255) UNIQUE NOT NULL,
-                                   PRIMARY KEY (schedule_id),
-                                   FOREIGN KEY (schedule_id) REFERENCES Schedule(ID)
-                                       ON UPDATE CASCADE
-                                       ON DELETE CASCADE,
-                                   FOREIGN KEY (enclosure_id) REFERENCES Enclosure(ID)
-                                       ON UPDATE CASCADE
-                                       ON DELETE CASCADE
+CREATE TABLE Schedule
+(
+    ID INT, -- AUTO_INCREMENT,
+    frequency VARCHAR(255),
+    schedule_time TIMESTAMP,
+    PRIMARY KEY (ID)
 );
 
-CREATE TABLE Enclosure (
-                           ID: INT AUTO_INCREMENT,
-                           type: VARCHAR(255),
-                           temperature: INT,
-                           PRIMARY KEY (ID)
+CREATE TABLE Feeding_Schedule
+(
+    schedule_id INT,
+    food_type VARCHAR(255),
+    PRIMARY KEY (schedule_id),
+    FOREIGN KEY (schedule_id) REFERENCES Schedule(ID)
+--         ON UPDATE CASCADE
+        ON DELETE CASCADE
 );
 
-CREATE TABLE Leads (
-                       employee_id: INT,
-                       event_id: INT,
-                       PRIMARY KEY (employee_id, event_id),
-                       FOREIGN KEY (employee_id) REFERENCES Employee(ID)
-                           ON UPDATE CASCADE
-                           ON DELETE CASCADE,
-                       FOREIGN KEY (event_id) REFERENCES Event(ID)
-                           ON UPDATE CASCADE
-                           ON DELETE CASCADE
+CREATE TABLE Cleaning_Schedule
+(
+    schedule_id INT,
+    enclosure_id INT UNIQUE NOT NULL,
+    PRIMARY KEY (schedule_id),
+    FOREIGN KEY (schedule_id) REFERENCES Schedule(ID)
+--         ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    FOREIGN KEY (enclosure_id) REFERENCES Enclosure(ID)
+--         ON UPDATE CASCADE
+        ON DELETE CASCADE
 );
 
-CREATE TABLE Cares_For (
-                           employee_id: INT,
-                           animal_id: INT,
-                           PRIMARY KEY (employee_id, animal_id),
-                           FOREIGN KEY (employee_id) REFERENCES Employee(ID)
-                               ON UPDATE CASCADE
-                               ON DELETE CASCADE,
-                           FOREIGN KEY (animal_id) REFERENCES Animal(ID)
-                               ON UPDATE CASCADE
-                               ON DELETE CASCADE
+CREATE TABLE Leads
+(
+    employee_id INT,
+    event_id INT,
+    PRIMARY KEY (employee_id, event_id),
+    FOREIGN KEY (employee_id) REFERENCES Employee(ID)
+--         ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    FOREIGN KEY (event_id) REFERENCES Event(ID)
+--         ON UPDATE CASCADE
+        ON DELETE CASCADE
 );
 
-
-
-CREATE TABLE To (
-                    animal_id: INT,
-                    feeding_schedule_id: INT,
-                    PRIMARY KEY (animal_id, feeding_schedule_id),
-                    FOREIGN KEY (animal_id) REFERENCES Animal(ID)
-                        ON UPDATE CASCADE
-                        ON DELETE CASCADE,
-                    FOREIGN KEY (feeding_schedule_id) REFERENCES Feeding_Schedule(schedule_id)
-                        ON UPDATE CASCADE
-                        ON DELETE CASCADE
+CREATE TABLE Cares_For
+(
+    employee_id INT,
+    animal_id INT,
+    PRIMARY KEY (employee_id, animal_id),
+    FOREIGN KEY (employee_id) REFERENCES Employee(ID)
+--         ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    FOREIGN KEY (animal_id) REFERENCES Animal(ID)
+--         ON UPDATE CASCADE
+        ON DELETE CASCADE
 );
 
-CREATE TABLE Is_Assigned (
-                             employee_id: INT,
-                             schedule_id: INT,
-                             PRIMARY KEY (employee_id, schedule_id),
-                             FOREIGN KEY (employee_id) REFERENCES Employee(ID)
-                                 ON UPDATE CASCADE
-                                 ON DELETE CASCADE,
-                             FOREIGN KEY (schedule_id) REFERENCES Schedule(ID)
-                                 ON UPDATE CASCADE
-                                 ON DELETE CASCADE
+CREATE TABLE Is_For
+(
+    animal_id INT,
+    feeding_schedule_id INT,
+    PRIMARY KEY (animal_id, feeding_schedule_id),
+    FOREIGN KEY (animal_id) REFERENCES Animal(ID)
+--         ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    FOREIGN KEY (feeding_schedule_id) REFERENCES Feeding_Schedule(schedule_id)
+--         ON UPDATE CASCADE
+        ON DELETE CASCADE
 );
 
-CREATE TABLE Participates (
-                              aquarium_event_id: INT,
-                              animal_id: INT,
-                              PRIMARY KEY (aquarium_event_id, animal_id),
-                              FOREIGN KEY (aquareium_event_id) REFERENCES Aquarium_Event(event_id)
-                                  ON UPDATE CASCADE
-                                  ON DELETE CASCADE,
-                              FOREIGN KEY (animal_id) REFERENCES Animal(ID)
-                                  ON UPDATE CASCADE
-                                  ON DELETE CASCADE
+CREATE TABLE Is_Assigned
+(
+    employee_id INT,
+    schedule_id INT,
+    PRIMARY KEY (employee_id, schedule_id),
+    FOREIGN KEY (employee_id) REFERENCES Employee(ID)
+--         ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    FOREIGN KEY (schedule_id) REFERENCES Schedule(ID)
+--         ON UPDATE CASCADE
+        ON DELETE CASCADE
 );
 
-INSERT INTO Event
-VALUES (1, "Penguin Encounter", 2021-10-31, 16:00:00, 17:59:59),
-       (2, "Dolphin Show", 2021-11-06, 13:30:00, 13:59:59),
-       (3, "Vancouver Elementary Outreach", 2022-01-03, 13:00:00, 14:59:59),
-       (4, "UBC Biology 100 Field Trip", 2022-01-17, 10:30:00, 13:29:59),
-       (5, "Krystal's Birthday", 2021-12-14, 13:00:00, 14:59:59),
-       (6, "Mea's Birthday", 2022-01-29, 15:00:00, 16:59:59),
-       (7, "Volunteer Cleanup", 2021-11-15, 11:30:00, 13:59:59),
-       (8, "Marine Mammal Rescue Exhibit", 2021-11-15, 14:00:00, 15:59:59),
-       (9, "UBC Elementary Field Trip", 2022-02-02, 09:30:00, 14:59:59),
-       (10, "Virtual Aquarium Tour", 2021-12-28, 12:30:00, 13:59:59);
+CREATE TABLE Participates
+(
+    aquarium_event_id INT,
+    animal_id INT,
+    PRIMARY KEY (aquarium_event_id, animal_id),
+    FOREIGN KEY (aquarium_event_id) REFERENCES Aquarium_Event(event_id)
+--         ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    FOREIGN KEY (animal_id) REFERENCES Animal(ID)
+--         ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
 
-INSERT INTO Aquarium_Event
-VALUES (1, "Interactive", "Penguin Encounter Room"),
-       (2, "Entertainment", "Dolphin Tank"),
-       (7, "Volunteer", "Stanley Park"),
-       (8, "Educational", "Seal Rescue Enclosure"),
-       (10, "Virtual", "Zoom");
+INSERT INTO Event VALUES (1, 'Penguin Encounter', TO_DATE('2021-10-31', 'YYYY-MM-DD'), TO_TIMESTAMP('16:00:00', 'HH24:MI:SS'), TO_TIMESTAMP('17:59:59', 'HH24:MI:SS'));
+INSERT INTO Event VALUES (2, 'Dolphin Show', TO_DATE('2021-11-06', 'YYYY-MM-DD'), TO_TIMESTAMP('13:30:00', 'HH24:MI:SS'), TO_TIMESTAMP('13:59:59', 'HH24:MI:SS'));
+INSERT INTO Event VALUES (3, 'Vancouver Elementary Outreach', TO_DATE('2022-01-03', 'YYYY-MM-DD'), TO_TIMESTAMP('13:00:00', 'HH24:MI:SS'), TO_TIMESTAMP('14:59:59', 'HH24:MI:SS'));
+INSERT INTO Event VALUES (4, 'UBC Biology 100 Field Trip', TO_DATE('2022-01-17', 'YYYY-MM-DD'), TO_TIMESTAMP('10:30:00', 'HH24:MI:SS'), TO_TIMESTAMP('13:29:59', 'HH24:MI:SS'));
+INSERT INTO Event VALUES (5, 'Krystal''s Birthday', TO_DATE('2021-12-14', 'YYYY-MM-DD'), TO_TIMESTAMP('13:00:00', 'HH24:MI:SS'), TO_TIMESTAMP('14:59:59', 'HH24:MI:SS'));
+INSERT INTO Event VALUES (6, 'Mea''s Birthday', TO_DATE('2022-01-29', 'YYYY-MM-DD'), TO_TIMESTAMP('15:00:00', 'HH24:MI:SS'), TO_TIMESTAMP('16:59:59', 'HH24:MI:SS'));
+INSERT INTO Event VALUES (7, 'Volunteer Cleanup', TO_DATE('2021-11-15', 'YYYY-MM-DD'), TO_TIMESTAMP('11:30:00', 'HH24:MI:SS'), TO_TIMESTAMP('13:59:59', 'HH24:MI:SS'));
+INSERT INTO Event VALUES (8, 'Marine Mammal Rescue Exhibit', TO_DATE('2021-11-15', 'YYYY-MM-DD'), TO_TIMESTAMP('14:00:00', 'HH24:MI:SS'), TO_TIMESTAMP('15:59:59', 'HH24:MI:SS'));
+INSERT INTO Event VALUES (9, 'UBC Elementary Field Trip', TO_DATE('2022-02-02', 'YYYY-MM-DD'), TO_TIMESTAMP('09:30:00', 'HH24:MI:SS'), TO_TIMESTAMP('14:59:59', 'HH24:MI:SS'));
+INSERT INTO Event VALUES (10, 'Virtual Aquarium Tour', TO_DATE('2021-12-28', 'YYYY-MM-DD'), TO_TIMESTAMP('12:30:00', 'HH24:MI:SS'), TO_TIMESTAMP('13:59:59', 'HH24:MI:SS'));
 
-INSERT INTO Location_Size
-VALUES ("Penguin Encounter Room", 20),
-       ("Dolphin Tank", 150),
-       ("Stanley Park", 200),
-       ("Seal Rescue Enclosure", 40),
-       ("Zoom", 20);
+INSERT INTO Location_Size VALUES ('Penguin Encounter Room', 20);
+INSERT INTO Location_Size VALUES ('Dolphin Tank', 150);
+INSERT INTO Location_Size VALUES ('Stanley Park', 200);
+INSERT INTO Location_Size VALUES ('Seal Rescue Enclosure', 40);
+INSERT INTO Location_Size VALUES ('Zoom', 20);
 
-INSERT INTO Event_Ticket_Rates
-VALUES ("Interactive", 40),
-       ("Entertainment", 35),
-       ("Volunteer", 0),
-       ("Educational", 20),
-       ("Virtual", 25);
+INSERT INTO Event_Ticket_Rates VALUES ('Interactive', 40);
+INSERT INTO Event_Ticket_Rates VALUES ('Entertainment', 35);
+INSERT INTO Event_Ticket_Rates VALUES ('Volunteer', 0);
+INSERT INTO Event_Ticket_Rates VALUES ('Educational', 20);
+INSERT INTO Event_Ticket_Rates VALUES ('Virtual', 25);
 
-INSERT INTO Customer_Event
-VALUES (3, 30, 2),
-       (4, 30, 1),
-       (5, 10, 5),
-       (6, 5, 4),
-       (9, 50, 3);
+INSERT INTO Event_Booking_Rates VALUES (20, 300);
+INSERT INTO Event_Booking_Rates VALUES (120, 1500);
+INSERT INTO Event_Booking_Rates VALUES (10, 100);
+INSERT INTO Event_Booking_Rates VALUES (5, 50);
+INSERT INTO Event_Booking_Rates VALUES (50, 500);
 
-INSERT INTO Event_Booking_Rates
-VALUES (20, 300),
-       (120, 1500),
-       (10, 100),
-       (5. 50),
-       (50, 500);
+INSERT INTO Aquarium_Event VALUES (1, 'Interactive', 'Penguin Encounter Room');
+INSERT INTO Aquarium_Event VALUES (2, 'Entertainment', 'Dolphin Tank');
+INSERT INTO Aquarium_Event VALUES (7, 'Volunteer', 'Stanley Park');
+INSERT INTO Aquarium_Event VALUES (8, 'Educational', 'Seal Rescue Enclosure');
+INSERT INTO Aquarium_Event VALUES (10, 'Virtual', 'Zoom');
 
-INSERT INTO Customer
-VALUES (1, "778-888-8888", "mea_ubc@gmail.com", "Mea", "Srisan"),
-       (2, "604-345-6789", "jsmith@vancouverelementary.ca", "John", "Smith"),
-       (3, "778-333-3333", "janelee@gmail.com", "Jane", "Lee"),
-       (4, "604-333-3333", "l_wang@hotmail.com", "Linda", "Wang"),
-       (5, "778-999-9999", "e_perry@hotmail.com", "Emily", "Perry");
+INSERT INTO Customer VALUES (1, '778-888-8888', 'mea_ubc@gmail.com', 'Mea', 'Srisan');
+INSERT INTO Customer VALUES (2, '604-345-6789', 'jsmith@vancouverelementary.ca', 'John', 'Smith');
+INSERT INTO Customer VALUES (3, '778-333-3333', 'janelee@gmail.com', 'Jane', 'Lee');
+INSERT INTO Customer VALUES (4, '604-333-3333', 'l_wang@hotmail.com', 'Linda', 'Wang');
+INSERT INTO Customer VALUES (5, '778-999-9999', 'e_perry@hotmail.com', 'Emily', 'Perry');
 
-INSERT INTO Employee
-vALUES (1, "778-984-9384", "kurt.kaufer@aquarium.ubc.ca", "Kurt", "Kaufer"),
-       (2, "604-444-4444", "alan.li@aquarium.ubc.ca", "Alan", "Li"),
-       (3, "604-555-5555", "dorothy.kim@aquarium.ubc.ca", "Dorothy", "Kim"),
-       (4, "778-111-1111", "linda.poon@aquarium.ubc.ca", "Linda", "Poon"),
-       (5, "604-000-0000", "samuel.ericson@aquarium.ubc.ca", "Samuel", "Ericson"),
-       (6, "778-661-6633", "xiao.wang@aquarium.ubc.ca", "Xiao", "Wang"),
-       (7, "604-000-0001", "taylor.swift@aquarium.ubc.ca", "Taylor", "Swift");
+INSERT INTO Customer_Event VALUES (3, 20, 2);
+INSERT INTO Customer_Event VALUES (4, 20, 1);
+INSERT INTO Customer_Event VALUES (5, 10, 5);
+INSERT INTO Customer_Event VALUES (6, 5, 4);
+INSERT INTO Customer_Event VALUES (9, 50, 3);
 
-INSERT INTO Biologist
-VALUES (1, "Dolphin Physiology", "Dolphin"),
-       (2, "Penguin Physiology", "Penguin"),
-       (4, "Fish Physiology", "Fish"),
-       (6, "Coastline Conservation", "Conservation"),
-       (7, "Reproduction", "Marine Genetics");
+INSERT INTO Employee VALUES (1, '778-984-9384', 'kurt.kaufer@aquarium.ubc.ca', 'Kurt', 'Kaufer');
+INSERT INTO Employee VALUES (2, '604-444-4444', 'alan.li@aquarium.ubc.ca', 'Alan', 'Li');
+INSERT INTO Employee VALUES (3, '604-555-5555', 'dorothy.kim@aquarium.ubc.ca', 'Dorothy', 'Kim');
+INSERT INTO Employee VALUES (4, '778-111-1111', 'linda.poon@aquarium.ubc.ca', 'Linda', 'Poon');
+INSERT INTO Employee VALUES (5, '604-000-0000', 'samuel.ericson@aquarium.ubc.ca', 'Samuel', 'Ericson');
+INSERT INTO Employee VALUES (6, '778-661-6633', 'xiao.wang@aquarium.ubc.ca', 'Xiao', 'Wang');
+INSERT INTO Employee VALUES (7, '604-000-0001', 'taylor.swift@aquarium.ubc.ca', 'Taylor', 'Swift');
 
-INSERT INTO Department_Location
-VALUES ("Dolphin", "Office Annex A"),
-       ("Penguin", "Office Annex B"),
-       ("Fish", "Office Annex B"),
-       ("Conservation", "Office Annex C"),
-       ("Marine Genetics", "Office Annex A");
+INSERT INTO Department_Location VALUES ('Dolphin', 'Office Annex A');
+INSERT INTO Department_Location VALUES ('Penguin', 'Office Annex B');
+INSERT INTO Department_Location VALUES ('Fish', 'Office Annex B');
+INSERT INTO Department_Location VALUES ('Conservation', 'Office Annex C');
+INSERT INTO Department_Location VALUES ('Marine Genetics', 'Office Annex A');
 
-INSERT INTO Checkup
-VALUES (1, "Regular Checkup", 2021-11-29, 9:30:00, 4, 5),
-       (2, "Heart Surgery", 2021-12-01, 11:30:00, 2, 1),
-       (3, "Swim Rehab", 2022-01-23, 14:00:00, 1, 3),
-       (4, "Pregnancy Checkup", 2022-02-11, 13:15:00, 2, 1),
-       (5, "Artificial Fin Attachment Surgery", 2022-01-23, 9:30:00, 1, 3);
+INSERT INTO Biologist VALUES (1, 'Dolphin Physiology', 'Dolphin');
+INSERT INTO Biologist VALUES (2, 'Penguin Physiology', 'Penguin');
+INSERT INTO Biologist VALUES (4, 'Fish Physiology', 'Fish');
+INSERT INTO Biologist VALUES (6, 'Coastline Conservation', 'Conservation');
+INSERT INTO Biologist VALUES (7, 'Reproduction', 'Marine Genetics');
 
-INSERT INTO Checkup_Priority
-VALUES ("Regular Checkup", 0),
-       ("Heart Surgery", 2),
-       ("Swim Rehab", 1),
-       ("Pregnancy Checkup", 1),
-       ("Artificial Fin Attachment Surgery", 2);
+INSERT INTO Enclosure VALUES (1, 'Tank', 22);
+INSERT INTO Enclosure VALUES (2, 'Open Air', 10);
+INSERT INTO Enclosure VALUES (3, 'Tank', 15);
+INSERT INTO Enclosure VALUES (4, 'Tank', 25);
+INSERT INTO Enclosure VALUES (5, 'Open Air', 15);
 
-INSERT INTO Animal
-VALUES (1, 5, "Eudyptula minor", "Poor"),
-       (2, 5, "Eudyptula minor", "Pregnant"),
-       (3, 3, "Lagenorhynchus obliquidens", "In Rehab"),
-       (4, 3, "Lagenorhynchus obliquidens", "Poor"),
-       (5, 1, "Amphiprion percula", "Healthy"),
-       (6, 1, "Paracanthurus hepatus", "Healthy"),
-       (7, 2, "Enhydra lutris", "Healthy"),
-       (8, 2, "Enhydra lutris", "Pregnant"),
-       (9, 2, "Enhydra lutris", "Healthy"),
-       (10, 4, "Octopus vulgaris", "Healthy");
+INSERT INTO Animal VALUES (1, 5, 'Eudyptula minor', 'Poor');
+INSERT INTO Animal VALUES (2, 5, 'Eudyptula minor', 'Pregnant');
+INSERT INTO Animal VALUES (3, 3, 'Lagenorhynchus obliquidens', 'In Rehab');
+INSERT INTO Animal VALUES (4, 3, 'Lagenorhynchus obliquidens', 'Poor');
+INSERT INTO Animal VALUES (5, 1, 'Amphiprion percula', 'Healthy');
+INSERT INTO Animal VALUES (6, 1, 'Paracanthurus hepatus', 'Healthy');
+INSERT INTO Animal VALUES (7, 2, 'Enhydra lutris', 'Healthy');
+INSERT INTO Animal VALUES (8, 2, 'Enhydra lutris', 'Pregnant');
+INSERT INTO Animal VALUES (9, 2, 'Enhydra lutris', 'Healthy');
+INSERT INTO Animal VALUES (10, 4, 'Octopus vulgaris', 'Healthy');
 
-INSERT INTO Aquatic_Animal
-VALUES (3, "Salt water", 15),
-       (4, "Salt water", 15),
-       (5, "Salt water", 22),
-       (6, "Salt water", 24),
-       (10, "Salt water", 26);
+INSERT INTO Aquatic_Animal VALUES (3, 'Salt water', 15);
+INSERT INTO Aquatic_Animal VALUES (4, 'Salt water', 15);
+INSERT INTO Aquatic_Animal VALUES (5, 'Salt water', 22);
+INSERT INTO Aquatic_Animal VALUES (6, 'Salt water', 24);
+INSERT INTO Aquatic_Animal VALUES (10, 'Salt water', 26);
 
-INSERT INTO Land_Animal
-VALUES (1, "Inshore waters around the coast and breeding islands"),
-       (2, "Inshore waters around the coast and breeding islands"),
-       (7, "Seas and rocky shores"),
-       (8, "Seas and rocky shores"),
-       (9, "Seas and rocky shores");
+INSERT INTO Land_Animal VALUES (1, 'Inshore waters around the coast and breeding islands');
+INSERT INTO Land_Animal VALUES (2, 'Inshore waters around the coast and breeding islands');
+INSERT INTO Land_Animal VALUES (7, 'Seas and rocky shores');
+INSERT INTO Land_Animal VALUES (8, 'Seas and rocky shores');
+INSERT INTO Land_Animal VALUES (9, 'Seas and rocky shores');
 
-INSERT INTO Schedule
-VALUES (1, "Weekly", 14:00:00),
-       (2, "Daiy", 05:30:00),
-       (3, "Daiy", 05:30:00),
-       (4, "Daiy", 06:00:00),
-       (5, "Daiy", 06:30:00),
-       (6, "Daiy", 06:30:00),
-       (7, "Weekly", 20:00:00),
-       (8, "Daily", 21:00:00),
-       (9, "Daily", 21:30:00),
-       (10, "Daily", 22:00:00);
+INSERT INTO Checkup_Priority VALUES ('Regular Checkup', 0);
+INSERT INTO Checkup_Priority VALUES ('Heart Surgery', 2);
+INSERT INTO Checkup_Priority VALUES ('Swim Rehab', 1);
+INSERT INTO Checkup_Priority VALUES ('Pregnancy Checkup', 1);
+INSERT INTO Checkup_Priority VALUES ('Artificial Fin Attachment Surgery', 2);
 
-INSERT INTO Feeding_Schedule
-VALUES (1, "Clams"),
-       (2, "Feeder fish"),
-       (3, "Flake food"),
-       (4, "Feeder fish"),
-       (5, "Crabs");
+INSERT INTO Checkup VALUES (1, 'Regular Checkup', TO_DATE('2021-11-29', 'YYYY-MM-DD'), TO_TIMESTAMP('9:30:00', 'HH24:MI:SS'), 4, 5);
+INSERT INTO Checkup VALUES (2, 'Heart Surgery', TO_DATE('2021-12-01', 'YYYY-MM-DD'), TO_TIMESTAMP('11:30:00', 'HH24:MI:SS'), 2, 1);
+INSERT INTO Checkup VALUES (3, 'Swim Rehab', TO_DATE('2022-01-23', 'YYYY-MM-DD'), TO_TIMESTAMP('14:00:00', 'HH24:MI:SS'), 1, 3);
+INSERT INTO Checkup VALUES (4, 'Pregnancy Checkup', TO_DATE('2022-02-11', 'YYYY-MM-DD'), TO_TIMESTAMP('13:15:00', 'HH24:MI:SS'), 2, 1);
+INSERT INTO Checkup VALUES (5, 'Artificial Fin Attachment Surgery', TO_DATE('2022-01-23', 'YYYY-MM-DD'), TO_TIMESTAMP('9:30:00', 'HH24:MI:SS'), 1, 3);
 
-INSERT INTO Cleaning_Schedule
-VALUES (6, 1),
-       (7, 2),
-       (8, 3),
-       (9, 4),
-       (10, 5);
+INSERT INTO Schedule VALUES (1, 'Weekly', TO_TIMESTAMP('14:00:00', 'HH24:MI:SS'));
+INSERT INTO Schedule VALUES (2, 'Daily', TO_TIMESTAMP('05:30:00', 'HH24:MI:SS'));
+INSERT INTO Schedule VALUES (3, 'Daily', TO_TIMESTAMP('05:30:00', 'HH24:MI:SS'));
+INSERT INTO Schedule VALUES (4, 'Daily', TO_TIMESTAMP('06:00:00', 'HH24:MI:SS'));
+INSERT INTO Schedule VALUES (5, 'Daily', TO_TIMESTAMP('06:30:00', 'HH24:MI:SS'));
+INSERT INTO Schedule VALUES (6, 'Daily', TO_TIMESTAMP('06:30:00', 'HH24:MI:SS'));
+INSERT INTO Schedule VALUES (7, 'Weekly', TO_TIMESTAMP('20:00:00', 'HH24:MI:SS'));
+INSERT INTO Schedule VALUES (8, 'Daily', TO_TIMESTAMP('21:00:00', 'HH24:MI:SS'));
+INSERT INTO Schedule VALUES (9, 'Daily', TO_TIMESTAMP('21:30:00', 'HH24:MI:SS'));
+INSERT INTO Schedule VALUES (10, 'Daily', TO_TIMESTAMP('22:00:00', 'HH24:MI:SS'));
 
-INSERT INTO Enclosure
-VALUES (1, "Tank", 22),
-       (2, "Open Air", 10),
-       (3, "Tank", 15),
-       (4, "Tank", 25),
-       (5, "Open Air");
+INSERT INTO Feeding_Schedule VALUES (1, 'Clams');
+INSERT INTO Feeding_Schedule VALUES (2, 'Feeder fish');
+INSERT INTO Feeding_Schedule VALUES (3, 'Flake food');
+INSERT INTO Feeding_Schedule VALUES (4, 'Feeder fish');
+INSERT INTO Feeding_Schedule VALUES (5, 'Crabs');
 
-INSERT INTO Leads
-VALUES (1, 3),
-       (1, 5),
-       (2, 5),
-       (4, 4),
-       (4, 9);
+INSERT INTO Cleaning_Schedule VALUES (6, 1);
+INSERT INTO Cleaning_Schedule VALUES (7, 2);
+INSERT INTO Cleaning_Schedule VALUES (8, 3);
+INSERT INTO Cleaning_Schedule VALUES (9, 4);
+INSERT INTO Cleaning_Schedule VALUES (10, 5);
 
-INSERT INTO Cares_For
-VALUES (2, 1),
-       (6, 2),
-       (4, 3),
-       (3, 4),
-       (7, 5);
+INSERT INTO Leads VALUES (1, 3);
+INSERT INTO Leads VALUES (1, 5);
+INSERT INTO Leads VALUES (2, 5);
+INSERT INTO Leads VALUES (4, 4);
+INSERT INTO Leads VALUES (4, 9);
 
-INSERT INTO To
-VALUES (9, 1),
-       (3, 2),
-       (5, 3),
-       (7, 4),
-       (10, 5);
+INSERT INTO Cares_For VALUES (2, 1);
+INSERT INTO Cares_For VALUES (6, 2);
+INSERT INTO Cares_For VALUES (4, 3);
+INSERT INTO Cares_For VALUES (3, 4);
+INSERT INTO Cares_For VALUES (7, 5);
 
-INSERT INTO Is_Assigned
-VALUES (1, 10),
-       (2, 8),
-       (3, 7),
-       (4, 6),
-       (5, 5);
+INSERT INTO Is_For VALUES (9, 1);
+INSERT INTO Is_For VALUES (3, 2);
+INSERT INTO Is_For VALUES (5, 3);
+INSERT INTO Is_For VALUES (7, 4);
+INSERT INTO Is_For VALUES (10, 5);
 
-INSERT INTO Participates
-VALUES (1, 1),
-       (1, 2),
-       (2, 3),
-       (2, 4),
-       (8, 7);
+INSERT INTO Is_Assigned VALUES (1, 10);
+INSERT INTO Is_Assigned VALUES (2, 8);
+INSERT INTO Is_Assigned VALUES (3, 7);
+INSERT INTO Is_Assigned VALUES (4, 6);
+INSERT INTO Is_Assigned VALUES (5, 5);
+
+INSERT INTO Participates VALUES (1, 1);
+INSERT INTO Participates VALUES (1, 2);
+INSERT INTO Participates VALUES (2, 3);
+INSERT INTO Participates VALUES (2, 4);
+INSERT INTO Participates VALUES (8, 7);
 
