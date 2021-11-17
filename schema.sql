@@ -140,7 +140,9 @@ CREATE TABLE Enclosure
 CREATE TABLE Animal
 (
     ID INT, -- AUTO_INCREMENT,
+    name VARCHAR(255),
     enclosure_id INT NOT NULL,
+    animal_group VARCHAR(255),
     species VARCHAR(255),
     health VARCHAR(255),
     PRIMARY KEY (ID),
@@ -366,16 +368,16 @@ INSERT INTO Enclosure VALUES (3, 'Tank', 15);
 INSERT INTO Enclosure VALUES (4, 'Tank', 25);
 INSERT INTO Enclosure VALUES (5, 'Open Air', 15);
 
-INSERT INTO Animal VALUES (1, 5, 'Eudyptula minor', 'Poor');
-INSERT INTO Animal VALUES (2, 5, 'Eudyptula minor', 'Pregnant');
-INSERT INTO Animal VALUES (3, 3, 'Lagenorhynchus obliquidens', 'In Rehab');
-INSERT INTO Animal VALUES (4, 3, 'Lagenorhynchus obliquidens', 'Poor');
-INSERT INTO Animal VALUES (5, 1, 'Amphiprion percula', 'Healthy');
-INSERT INTO Animal VALUES (6, 1, 'Paracanthurus hepatus', 'Healthy');
-INSERT INTO Animal VALUES (7, 2, 'Enhydra lutris', 'Healthy');
-INSERT INTO Animal VALUES (8, 2, 'Enhydra lutris', 'Pregnant');
-INSERT INTO Animal VALUES (9, 2, 'Enhydra lutris', 'Healthy');
-INSERT INTO Animal VALUES (10, 4, 'Octopus vulgaris', 'Healthy');
+INSERT INTO Animal VALUES (1, 'Peter', 5, 'Penguin', 'Eudyptula minor', 'Poor');
+INSERT INTO Animal VALUES (2, 'Penny', 5, 'Penguin', 'Eudyptula minor', 'Pregnant');
+INSERT INTO Animal VALUES (3, 'Flipper', 3, 'Dolphin', 'Lagenorhynchus obliquidens', 'In Rehab');
+INSERT INTO Animal VALUES (4, 'Azula', 3, 'Dolphin', 'Lagenorhynchus obliquidens', 'Poor');
+INSERT INTO Animal VALUES (5, 'Nemo', 1, 'Fish', 'Amphiprion percula', 'Healthy');
+INSERT INTO Animal VALUES (6, 'Dory', 1, 'Fish', 'Paracanthurus hepatus', 'Healthy');
+INSERT INTO Animal VALUES (7, 'Otto', 2, 'Otter', 'Enhydra lutris', 'Healthy');
+INSERT INTO Animal VALUES (8, 'Pearl', 2, 'Otter', 'Enhydra lutris', 'Pregnant');
+INSERT INTO Animal VALUES (9, 'Martin', 2, 'Otter', 'Enhydra lutris', 'Healthy');
+INSERT INTO Animal VALUES (10, 'Octavius', 4, 'Octopus', 'Octopus vulgaris', 'Healthy');
 
 INSERT INTO Aquatic_Animal VALUES (3, 'Salt water', 15);
 INSERT INTO Aquatic_Animal VALUES (4, 'Salt water', 15);
@@ -426,9 +428,20 @@ INSERT INTO Cleaning_Schedule VALUES (10, 5);
 
 INSERT INTO Leads VALUES (1, 3);
 INSERT INTO Leads VALUES (1, 5);
+INSERT INTO Leads VALUES (1, 4);
+INSERT INTO Leads VALUES (1, 2);
+INSERT INTO Leads VALUES (1, 1);
+INSERT INTO Leads VALUES (1, 6);
+INSERT INTO Leads VALUES (1, 7);
+INSERT INTO Leads VALUES (1, 8);
+INSERT INTO Leads VALUES (1, 9);
 INSERT INTO Leads VALUES (2, 5);
 INSERT INTO Leads VALUES (4, 4);
-INSERT INTO Leads VALUES (4, 9);
+INSERT INTO Leads VALUES (4, 8);
+INSERT INTO Leads VALUES (3, 6);
+INSERT INTO Leads VALUES (7, 2);
+INSERT INTO Leads VALUES (4, 1);
+INSERT INTO Leads VALUES (3, 9);
 
 INSERT INTO Cares_For VALUES (2, 1);
 INSERT INTO Cares_For VALUES (6, 2);
