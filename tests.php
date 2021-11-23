@@ -16,23 +16,44 @@
 
         <hr />
 
-        <h2>Create New Event</h2>
+        <h2>Create New Aquarium Event</h2>
+        <form method="POST" action="tests.php"> <!--refresh page when submitted-->
+            <input type="hidden" id="insertQueryRequest" name="insertQueryRequest">
+               <!-- Number: <input type="text" name="insNo"> <br /><br /> -->
+               <!--Name: <input type="text" name="insName"> <br /><br /> -->
+
+            <input type="submit" value="Insert" name="insert-aquarium-event"></p>
+        </form>
+        <hr />
+
+        <h2>Create New Customer Event</h2>
         <form method="POST" action="tests.php"> <!--refresh page when submitted-->
             <input type="hidden" id="insertQueryRequest" name="insertQueryRequest">
             Number: <input type="text" name="insNo"> <br /><br />
             Name: <input type="text" name="insName"> <br /><br />
 
-            <input type="submit" value="Insert" name="insert"></p>
+            <input type="submit" value="Insert" name="insert-customer-event"></p>
         </form>
         <hr />
 
         <h2>Delete Event</h2>
+        <form method="POST" action="tests.php"> <!--refresh page when submitted-->
+            <input type="hidden" id="insertQueryRequest" name="insertQueryRequest">
+            Number: <input type="number" name="id"> <br /><br />
+            <input type="submit" value="delete" name="delete"></p>
+        </form>
         <hr />
 
         <h2>Select Event(and view)</h2>
+        <form method="POST" action="tests.php"> <!--refresh page when submitted-->
+            <input type="hidden" id="insertQueryRequest" name="insertQueryRequest">
+            Number: <input type="number" name="id"> <br /><br />
+            <input type="submit" value="select" name="select"></p>
+        </form>
         <hr />
 
         <h2>Join Biologist, checkup, checkopportunity, Employee (select name), biologist specialty, to see who is doing checkup </h2>
+
         <hr />
 
         <h2>Update Event</h2>
@@ -59,16 +80,22 @@
 
         // PHP action table router
         if(connectToDB()) {
-            if (isset($_POST['reset']) || isset($_POST['insert']) || isset($_POST['delete']) ||
+            if (isset($_POST['reset']) || isset($_POST['insert-aquarium-event']) || isset($_POST['insert-customer-event'])
+             || isset($_POST['delete']) ||
                 isset($_POST['update'])
             ) {
                 if (isset($_POST['reset'])) {
                     include_once "reset.php";
                     handleResetRequest();
-                } else if (isset($_POST['insert'])) {
+                } else if (isset($_POST['insert-aquarium-event'])) {
                     include_once "insert_event.php";
 
-                } else if (isset($_POST['delete'])) {
+                } else if (isset($_POST['insert-customer-event'])) {
+                    // use other function in file
+                    include_once "insert_event.php";
+ 
+                }
+                 else if (isset($_POST['delete'])) {
                     include_once "delete_event.php";
 
                 } else if (isset($_POST['update'])) {
