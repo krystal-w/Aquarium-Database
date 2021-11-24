@@ -74,10 +74,10 @@ CREATE TABLE Aquarium_Event
 CREATE TABLE Customer
 (
     ID INT, -- AUTO_INCREMENT,
+    first_name VARCHAR(255),
+    last_name VARCHAR(255),
     phone# VARCHAR(255) UNIQUE,
     email VARCHAR(255) UNIQUE,
-    last_name VARCHAR(255),
-    first_name VARCHAR(255),
     PRIMARY KEY (ID)
 );
 
@@ -101,10 +101,10 @@ CREATE TABLE Customer_Event
 CREATE TABLE Employee
 (
     ID INT, -- AUTO_INCREMENT,
-    phone# VARCHAR(255) UNIQUE,
     first_name VARCHAR(255),
-    email VARCHAR(255) UNIQUE,
     last_name CHAR(50),
+    phone# VARCHAR(255) UNIQUE,
+    email VARCHAR(255) UNIQUE,
     PRIMARY KEY (ID)
 );
 
@@ -175,7 +175,7 @@ CREATE TABLE Land_Animal
 CREATE TABLE Checkup_Priority
 (
     type VARCHAR(255),
-    priority INT,
+    priority VARCHAR(255),
     PRIMARY KEY (type)
 );
 
@@ -330,11 +330,11 @@ INSERT INTO Aquarium_Event VALUES (7, 'Volunteer', 'Stanley Park');
 INSERT INTO Aquarium_Event VALUES (8, 'Educational', 'Seal Rescue Enclosure');
 INSERT INTO Aquarium_Event VALUES (10, 'Virtual', 'Zoom');
 
-INSERT INTO Customer VALUES (1, '778-888-8888', 'mea_ubc@gmail.com', 'Mea', 'Srisan');
-INSERT INTO Customer VALUES (2, '604-345-6789', 'jsmith@vancouverelementary.ca', 'John', 'Smith');
-INSERT INTO Customer VALUES (3, '778-333-3333', 'janelee@gmail.com', 'Jane', 'Lee');
-INSERT INTO Customer VALUES (4, '604-333-3333', 'l_wang@hotmail.com', 'Linda', 'Wang');
-INSERT INTO Customer VALUES (5, '778-999-9999', 'e_perry@hotmail.com', 'Emily', 'Perry');
+INSERT INTO Customer VALUES (1, 'Mea', 'Srisan', '778-888-8888', 'mea_ubc@gmail.com');
+INSERT INTO Customer VALUES (2, 'John', 'Smith', '604-345-6789', 'jsmith@vancouverelementary.ca');
+INSERT INTO Customer VALUES (3, 'Jane', 'Lee', '778-333-3333', 'janelee@gmail.com');
+INSERT INTO Customer VALUES (4, 'Linda', 'Wang', '604-333-3333', 'l_wang@hotmail.com');
+INSERT INTO Customer VALUES (5, 'Emily', 'Perry', '778-999-9999', 'e_perry@hotmail.com');
 
 INSERT INTO Customer_Event VALUES (3, 20, 2);
 INSERT INTO Customer_Event VALUES (4, 20, 1);
@@ -342,13 +342,13 @@ INSERT INTO Customer_Event VALUES (5, 10, 5);
 INSERT INTO Customer_Event VALUES (6, 5, 4);
 INSERT INTO Customer_Event VALUES (9, 50, 3);
 
-INSERT INTO Employee VALUES (1, '778-984-9384', 'kurt.kaufer@aquarium.ubc.ca', 'Kurt', 'Kaufer');
-INSERT INTO Employee VALUES (2, '604-444-4444', 'alan.li@aquarium.ubc.ca', 'Alan', 'Li');
-INSERT INTO Employee VALUES (3, '604-555-5555', 'dorothy.kim@aquarium.ubc.ca', 'Dorothy', 'Kim');
-INSERT INTO Employee VALUES (4, '778-111-1111', 'linda.poon@aquarium.ubc.ca', 'Linda', 'Poon');
-INSERT INTO Employee VALUES (5, '604-000-0000', 'samuel.ericson@aquarium.ubc.ca', 'Samuel', 'Ericson');
-INSERT INTO Employee VALUES (6, '778-661-6633', 'xiao.wang@aquarium.ubc.ca', 'Xiao', 'Wang');
-INSERT INTO Employee VALUES (7, '604-000-0001', 'taylor.swift@aquarium.ubc.ca', 'Taylor', 'Swift');
+INSERT INTO Employee VALUES (1, 'Kurt', 'Kaufer', '778-984-9384', 'kurt.kaufer@aquarium.ubc.ca');
+INSERT INTO Employee VALUES (2, 'Alan', 'Li', '604-444-4444', 'alan.li@aquarium.ubc.ca');
+INSERT INTO Employee VALUES (3, 'Dorothy', 'Kim', '604-555-5555', 'dorothy.kim@aquarium.ubc.ca');
+INSERT INTO Employee VALUES (4, 'Linda', 'Poon', '778-111-1111', 'linda.poon@aquarium.ubc.ca');
+INSERT INTO Employee VALUES (5, 'Samuel', 'Ericson', '604-000-0000', 'samuel.ericson@aquarium.ubc.ca');
+INSERT INTO Employee VALUES (6, 'Xiao', 'Wang', '778-661-6633', 'xiao.wang@aquarium.ubc.ca');
+INSERT INTO Employee VALUES (7, 'Taylor', 'Swift', '604-000-0001', 'taylor.swift@aquarium.ubc.ca');
 
 INSERT INTO Department_Location VALUES ('Dolphin', 'Office Annex A');
 INSERT INTO Department_Location VALUES ('Penguin', 'Office Annex B');
@@ -391,11 +391,11 @@ INSERT INTO Land_Animal VALUES (7, 'Seas and rocky shores');
 INSERT INTO Land_Animal VALUES (8, 'Seas and rocky shores');
 INSERT INTO Land_Animal VALUES (9, 'Seas and rocky shores');
 
-INSERT INTO Checkup_Priority VALUES ('Regular Checkup', 0);
-INSERT INTO Checkup_Priority VALUES ('Heart Surgery', 2);
-INSERT INTO Checkup_Priority VALUES ('Swim Rehab', 1);
-INSERT INTO Checkup_Priority VALUES ('Pregnancy Checkup', 1);
-INSERT INTO Checkup_Priority VALUES ('Artificial Fin Attachment Surgery', 2);
+INSERT INTO Checkup_Priority VALUES ('Regular Checkup', 'Low');
+INSERT INTO Checkup_Priority VALUES ('Heart Surgery', 'High');
+INSERT INTO Checkup_Priority VALUES ('Swim Rehab', 'Medium');
+INSERT INTO Checkup_Priority VALUES ('Pregnancy Checkup', 'Medium');
+INSERT INTO Checkup_Priority VALUES ('Artificial Fin Attachment Surgery', 'High');
 
 INSERT INTO Checkup VALUES (1, 'Regular Checkup', TO_DATE('2021-11-29', 'YYYY-MM-DD'), TO_TIMESTAMP('9:30:00', 'HH24:MI:SS'), 4, 5);
 INSERT INTO Checkup VALUES (2, 'Heart Surgery', TO_DATE('2021-12-01', 'YYYY-MM-DD'), TO_TIMESTAMP('11:30:00', 'HH24:MI:SS'), 2, 1);
