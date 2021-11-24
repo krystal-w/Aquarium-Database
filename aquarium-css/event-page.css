@@ -1,0 +1,57 @@
+#events-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+p {
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+}
+
+table {
+    font-family: 'Segoe UI';
+    font-size: 12px;
+    text-decoration: none;
+    clear: both;
+}
+
+/*---- RIGHT CONTAINER ----*/
+#info {
+    display: inline-block;
+}
+
+/*---- LEFT ----*/
+#form {
+    display: inline-block;
+}
+
+/*---- INPUT ----*/
+input[type=submit] {
+    font-family: 'Segoe UI';
+    font-size: 12px;
+    text-decoration: none;
+    background-color: #ffecce;
+    border: none;
+    padding: 7px 12px;
+    cursor: pointer;
+}
+
+input[type=text] {
+    font-family: 'Segoe UI';
+    font-size: 12px;
+    text-decoration: none;
+    background-color: #ffffff00;
+}
+
+input:hover {
+    -webkit-transition-duration: 0.4s;
+    -moz-transition-duration: 0.4s;
+    -o-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    background-color: #ffffff88;
+}
+
+input:active {
+    color: #ffffffff;
+}
