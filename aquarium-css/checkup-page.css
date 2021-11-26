@@ -1,0 +1,131 @@
+body {
+    margin: auto;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    color: #444444;
+    font-size: 9pt;
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url("../main-wallpaper.jpg");
+}
+
+#container {
+    display: grid;
+    vertical-align: middle;
+    margin: 0;
+    width: 80%;
+    height: 80%;
+    max-height: 80%;
+    margin: auto;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    display: grid;
+    grid-template-columns: 150px auto;
+    grid-template-rows: 100px auto;
+}
+
+p {
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+}
+
+span {
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+}
+
+#header {
+    display: flex;
+    grid-row: 1;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    background-color: #ffffffdd;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+#header p {
+    font-size: 40px;
+    font-size: 3.5vw;
+}
+
+#nav {
+    grid-row: 2;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    background-color: #ffffff99;
+    margin-right: 5px;
+}
+
+.nav-item {
+    display: block;
+    text-align: center;
+    background-color: #ffecce;
+    margin: 15px 5px 15px 5px;
+    padding: 10px 5px 10px 5px;
+    cursor: pointer;
+}
+
+.nav-item:hover {
+    -webkit-transition-duration: 0.4s;
+    -moz-transition-duration: 0.4s;
+    -o-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    background-color: #ffffff88;
+}
+
+.nav-item:active {
+    color: rgb(247, 160, 102);
+}
+
+#content {
+    grid-row: 2;
+    background-color: #ffffff99;
+    margin: 0;
+    font-size: 12pt;
+}
+
+#welcome {
+    display: inherit;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#welcome p {
+    font-size: 15px;
+    font-size: 1.5vw;
+    text-align: center;
+}
+
+#content {
+    padding: 5px;
+}
+
+#user_container {
+    display: block;
+    text-align: center;
+    margin: 15px 5px 0px 5px;
+    padding: 10px 5px 0px 5px;
+}
+
+.divider{
+    width:5px;
+    height:auto;
+    display:inline-block;
+}
+
+table, th, td {
+    padding: 5px;
+    border: 1px solid black;
+}
+
+table {
+    border-spacing: 2px;
+}

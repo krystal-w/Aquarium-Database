@@ -28,8 +28,8 @@ CREATE TABLE Event
     ID INT, -- AUTO_INCREMENT,
     name VARCHAR(255),
     event_date DATE,
-    start_time TIMESTAMP,
-    end_time TIMESTAMP,
+    start_time VARCHAR(255),
+    end_time VARCHAR(255),
     PRIMARY KEY (ID)
 );
 
@@ -102,7 +102,7 @@ CREATE TABLE Employee
 (
     ID INT, -- AUTO_INCREMENT,
     first_name VARCHAR(255),
-    last_name CHAR(50),
+    last_name VARCHAR(255),
     phone# VARCHAR(255) UNIQUE,
     email VARCHAR(255) UNIQUE,
     PRIMARY KEY (ID)
@@ -184,7 +184,7 @@ CREATE TABLE Checkup
     ID INT, -- AUTO_INCREMENT,
     type VARCHAR(255),
     checkup_date DATE,
-    checkup_time TIMESTAMP,
+    checkup_time VARCHAR(255),
     biologist_id INT NOT NULL,
     animal_id INT NOT NULL,
     PRIMARY KEY (ID),
@@ -203,7 +203,7 @@ CREATE TABLE Schedule
 (
     ID INT, -- AUTO_INCREMENT,
     frequency VARCHAR(255),
-    schedule_time TIMESTAMP,
+    schedule_time VARCHAR(255),
     PRIMARY KEY (ID)
 );
 
@@ -295,16 +295,16 @@ CREATE TABLE Participates
         ON DELETE CASCADE
 );
 
-INSERT INTO Event VALUES (1, 'Penguin Encounter', TO_DATE('2021-12-23', 'YYYY-MM-DD'), TO_TIMESTAMP('16:00:00', 'HH24:MI:SS'), TO_TIMESTAMP('17:59:59', 'HH24:MI:SS'));
-INSERT INTO Event VALUES (2, 'Dolphin Show', TO_DATE('2021-12-23', 'YYYY-MM-DD'), TO_TIMESTAMP('13:30:00', 'HH24:MI:SS'), TO_TIMESTAMP('13:59:59', 'HH24:MI:SS'));
-INSERT INTO Event VALUES (3, 'Vancouver Elementary Outreach', TO_DATE('2022-01-03', 'YYYY-MM-DD'), TO_TIMESTAMP('13:00:00', 'HH24:MI:SS'), TO_TIMESTAMP('14:59:59', 'HH24:MI:SS'));
-INSERT INTO Event VALUES (4, 'UBC Biology 100 Field Trip', TO_DATE('2022-01-17', 'YYYY-MM-DD'), TO_TIMESTAMP('10:30:00', 'HH24:MI:SS'), TO_TIMESTAMP('13:29:59', 'HH24:MI:SS'));
-INSERT INTO Event VALUES (5, 'Krystal''s Birthday', TO_DATE('2021-12-14', 'YYYY-MM-DD'), TO_TIMESTAMP('13:00:00', 'HH24:MI:SS'), TO_TIMESTAMP('14:59:59', 'HH24:MI:SS'));
-INSERT INTO Event VALUES (6, 'Mea''s Birthday', TO_DATE('2022-01-17', 'YYYY-MM-DD'), TO_TIMESTAMP('15:00:00', 'HH24:MI:SS'), TO_TIMESTAMP('16:59:59', 'HH24:MI:SS'));
-INSERT INTO Event VALUES (7, 'Volunteer Cleanup', TO_DATE('2021-11-15', 'YYYY-MM-DD'), TO_TIMESTAMP('11:30:00', 'HH24:MI:SS'), TO_TIMESTAMP('13:59:59', 'HH24:MI:SS'));
-INSERT INTO Event VALUES (8, 'Marine Mammal Rescue Exhibit', TO_DATE('2022-02-02', 'YYYY-MM-DD'), TO_TIMESTAMP('14:00:00', 'HH24:MI:SS'), TO_TIMESTAMP('15:59:59', 'HH24:MI:SS'));
-INSERT INTO Event VALUES (9, 'UBC Elementary Field Trip', TO_DATE('2022-02-02', 'YYYY-MM-DD'), TO_TIMESTAMP('09:30:00', 'HH24:MI:SS'), TO_TIMESTAMP('14:59:59', 'HH24:MI:SS'));
-INSERT INTO Event VALUES (10, 'Virtual Aquarium Tour', TO_DATE('2021-11-15', 'YYYY-MM-DD'), TO_TIMESTAMP('12:30:00', 'HH24:MI:SS'), TO_TIMESTAMP('13:59:59', 'HH24:MI:SS'));
+INSERT INTO Event VALUES (1, 'Penguin Encounter', TO_DATE('2021-12-23', 'YYYY-MM-DD'), '16:00:00', '17:59:59');
+INSERT INTO Event VALUES (2, 'Dolphin Show', TO_DATE('2021-12-23', 'YYYY-MM-DD'), '13:30:00', '13:59:59');
+INSERT INTO Event VALUES (3, 'Vancouver Elementary Outreach', TO_DATE('2022-01-03', 'YYYY-MM-DD'), '13:00:00', '14:59:59');
+INSERT INTO Event VALUES (4, 'UBC Biology 100 Field Trip', TO_DATE('2022-01-17', 'YYYY-MM-DD'), '10:30:00', '13:29:59');
+INSERT INTO Event VALUES (5, 'Krystal''s Birthday', TO_DATE('2021-12-14', 'YYYY-MM-DD'), '13:00:00', '14:59:59');
+INSERT INTO Event VALUES (6, 'Mea''s Birthday', TO_DATE('2022-01-17', 'YYYY-MM-DD'), '15:00:00', '16:59:59');
+INSERT INTO Event VALUES (7, 'Volunteer Cleanup', TO_DATE('2021-11-15', 'YYYY-MM-DD'), '11:30:00', '13:59:59');
+INSERT INTO Event VALUES (8, 'Marine Mammal Rescue Exhibit', TO_DATE('2022-02-02', 'YYYY-MM-DD'), '14:00:00', '15:59:59');
+INSERT INTO Event VALUES (9, 'UBC Elementary Field Trip', TO_DATE('2022-02-02', 'YYYY-MM-DD'), '09:30:00', '14:59:59');
+INSERT INTO Event VALUES (10, 'Virtual Aquarium Tour', TO_DATE('2021-11-15', 'YYYY-MM-DD'), '12:30:00', '13:59:59');
 
 INSERT INTO Location_Size VALUES ('Penguin Encounter Room', 20);
 INSERT INTO Location_Size VALUES ('Dolphin Tank', 150);
@@ -397,22 +397,22 @@ INSERT INTO Checkup_Priority VALUES ('Swim Rehab', 'Medium');
 INSERT INTO Checkup_Priority VALUES ('Pregnancy Checkup', 'Medium');
 INSERT INTO Checkup_Priority VALUES ('Artificial Fin Attachment Surgery', 'High');
 
-INSERT INTO Checkup VALUES (1, 'Regular Checkup', TO_DATE('2021-11-29', 'YYYY-MM-DD'), TO_TIMESTAMP('9:30:00', 'HH24:MI:SS'), 4, 5);
-INSERT INTO Checkup VALUES (2, 'Heart Surgery', TO_DATE('2021-12-01', 'YYYY-MM-DD'), TO_TIMESTAMP('11:30:00', 'HH24:MI:SS'), 2, 1);
-INSERT INTO Checkup VALUES (3, 'Swim Rehab', TO_DATE('2022-01-23', 'YYYY-MM-DD'), TO_TIMESTAMP('14:00:00', 'HH24:MI:SS'), 1, 3);
-INSERT INTO Checkup VALUES (4, 'Pregnancy Checkup', TO_DATE('2022-02-11', 'YYYY-MM-DD'), TO_TIMESTAMP('13:15:00', 'HH24:MI:SS'), 2, 1);
-INSERT INTO Checkup VALUES (5, 'Artificial Fin Attachment Surgery', TO_DATE('2022-01-23', 'YYYY-MM-DD'), TO_TIMESTAMP('9:30:00', 'HH24:MI:SS'), 1, 3);
+INSERT INTO Checkup VALUES (1, 'Regular Checkup', TO_DATE('2021-11-29', 'YYYY-MM-DD'), '09:30:00', 4, 5);
+INSERT INTO Checkup VALUES (2, 'Heart Surgery', TO_DATE('2021-12-01', 'YYYY-MM-DD'), '11:30:00', 2, 1);
+INSERT INTO Checkup VALUES (3, 'Swim Rehab', TO_DATE('2022-01-23', 'YYYY-MM-DD'), '14:00:00', 1, 3);
+INSERT INTO Checkup VALUES (4, 'Pregnancy Checkup', TO_DATE('2022-02-11', 'YYYY-MM-DD'), '13:15:00', 7, 1);
+INSERT INTO Checkup VALUES (5, 'Artificial Fin Attachment Surgery', TO_DATE('2022-01-23', 'YYYY-MM-DD'), '09:30:00', 1, 3);
 
-INSERT INTO Schedule VALUES (1, 'Weekly', TO_TIMESTAMP('14:00:00', 'HH24:MI:SS'));
-INSERT INTO Schedule VALUES (2, 'Daily', TO_TIMESTAMP('05:30:00', 'HH24:MI:SS'));
-INSERT INTO Schedule VALUES (3, 'Daily', TO_TIMESTAMP('05:30:00', 'HH24:MI:SS'));
-INSERT INTO Schedule VALUES (4, 'Daily', TO_TIMESTAMP('06:00:00', 'HH24:MI:SS'));
-INSERT INTO Schedule VALUES (5, 'Daily', TO_TIMESTAMP('06:30:00', 'HH24:MI:SS'));
-INSERT INTO Schedule VALUES (6, 'Daily', TO_TIMESTAMP('06:30:00', 'HH24:MI:SS'));
-INSERT INTO Schedule VALUES (7, 'Weekly', TO_TIMESTAMP('20:00:00', 'HH24:MI:SS'));
-INSERT INTO Schedule VALUES (8, 'Daily', TO_TIMESTAMP('21:00:00', 'HH24:MI:SS'));
-INSERT INTO Schedule VALUES (9, 'Daily', TO_TIMESTAMP('21:30:00', 'HH24:MI:SS'));
-INSERT INTO Schedule VALUES (10, 'Daily', TO_TIMESTAMP('22:00:00', 'HH24:MI:SS'));
+INSERT INTO Schedule VALUES (1, 'Weekly', '14:00:00');
+INSERT INTO Schedule VALUES (2, 'Daily', '05:30:00');
+INSERT INTO Schedule VALUES (3, 'Daily', '05:30:00');
+INSERT INTO Schedule VALUES (4, 'Daily', '06:00:00');
+INSERT INTO Schedule VALUES (5, 'Daily', '06:30:00');
+INSERT INTO Schedule VALUES (6, 'Daily', '06:30:00');
+INSERT INTO Schedule VALUES (7, 'Weekly', '20:00:00');
+INSERT INTO Schedule VALUES (8, 'Daily', '21:00:00');
+INSERT INTO Schedule VALUES (9, 'Daily', '21:30:00');
+INSERT INTO Schedule VALUES (10, 'Daily', '22:00:00');
 
 INSERT INTO Feeding_Schedule VALUES (1, 'Clams');
 INSERT INTO Feeding_Schedule VALUES (2, 'Feeder fish');
