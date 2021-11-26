@@ -44,7 +44,7 @@
             <h2>Total Number of Active Schedules</h2>
             <form method="GET" action="schedule-page.php"> <!--refresh page when submitted-->
                 <input type="hidden" id="countScheduleRequest" name="countScheduleRequest">
-                <input type="submit" name="getScheduleAmount"></p>
+                <input type="submit" name="getScheduleAmount" value="Get Schedule Amount"></p>
             </form>
 
 
@@ -59,31 +59,28 @@
     </div>
 </div>
 
-</body>
-
-</html>
-
 <?php
-    include "aquarium_dbmanager.php";
+    include("aquarium_dbmanager.php");
+    $instance = DataManager::Instance();
+
 
     if (isset($_GET['countScheduleRequest'])) {
-        if (connectToDB()) {
-            // count schedule
-            if (array_key_exists('getScheduleAmount', $_GET)) {
-                global $db_conn;
-
-                $result = executePlainSQL("SELECT s.frequency, COUNT(*) FROM Schedule s GROUP BY s.frequency");
-                if (($row = oci_fetch_row($result)) != false) {
-                    echo "<br> Active Employee Schedules: " . $row[0] . "<br>";
-                }
-            }
-            disconnectFromDB();
+        // count schedule
+        if (array_key_exists('getScheduleAmount', $_GET)) {
+            $result = $instance->executePlainSQL("SELECT s.frequency, COUNT(*) FROM Schedule s GROUP BY s.frequency");
+            if (($row = oci_fetch_row($result)) != false) {
+                echo "<p class = 'sticky'>Active Employee Schedules:" . $row[1] . "</p>";
+            } 
         }
 
 
 
 
+
+
     }
-
-
 ?>
+
+</body>
+
+</html>
