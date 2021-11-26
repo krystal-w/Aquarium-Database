@@ -86,10 +86,20 @@
 
             $result = $instance->executePlainSQL("SELECT * FROM Schedule WHERE ID = $id");
             if ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
-                echo "<div class='sticky'>" . "ID: " . $row[0] . "<br>" . "Frequency: " . $row[1] . "<br>" . "Shedule Time: " . $row[2] .  "</div>";
+                //if is a feeding schedule
+                if ($feed = OCI_Fetch_Array($instance->executePlainSQL("SELECT * FROM Feeding_Schedule WHERE schedule_id = $id"), OCI_BOTH) ) {
+                    echo "<div class='sticky'>" . "<b>Feeding Schedule</b>" ."<br>" . "ID: " . $row[0] . "<br>" . "Frequency: " . $row[1] . "<br>" . "Schedule Time: " . $row[2] . "<br>" . "Food Type: " . $feed[1] . "</div>";
+                }
+                //if is a cleaning schedule
+                else if ($cleaning = OCI_Fetch_Array($instance->executePlainSQL("SELECT * FROM Cleaning_Schedule WHERE schedule_id = $id"), OCI_BOTH)) {
+                    echo "<div class='sticky'>" . "<b>Cleaning Schedule</b>" ."<br>" . "ID: " . $row[0] . "<br>" . "Frequency: " . $row[1] . "<br>" . "Schedule Time: " . $row[2] . "<br>" . "Enclosure ID: " . $cleaning[1] .  "</div>";
+                }
+                //if is generic schedule
+                else {
+                    echo "<div class='sticky'>" . "<b>Schedule</b>" ."<br>" . "ID: " . $row[0] . "<br>" . "Frequency: " . $row[1] . "<br>" . "Shedule Time: " . $row[2] .  "</div>";
+                }
             } else {
                 echo "<p class = 'sticky'> No schedule by that ID found.</p>";
-
             }
 
 
