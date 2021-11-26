@@ -47,6 +47,13 @@
                 <input type="submit" name="getScheduleAmount" value="Get Schedule Amount"></p>
             </form>
 
+            <h2>Select Schedule</h2>
+            <form method="GET" action="schedule-page.php"> <!--refresh page when submitted-->
+                <input type="hidden" id="getScheduleIDRequest" name="getScheduleIDRequest"> 
+                ID: <input type="number" id="id" name="id">
+                <input type="submit" name="getSchedule" value="Get Schedule"></p>
+            </form>
+
 
 
 
@@ -64,13 +71,28 @@
     $instance = DataManager::Instance();
 
 
-    if (isset($_GET['countScheduleRequest'])) {
+    if (isset($_GET['countScheduleRequest']) || isset($_GET['getScheduleIDRequest'])) {
         // count schedule
         if (array_key_exists('getScheduleAmount', $_GET)) {
             $result = $instance->executePlainSQL("SELECT s.frequency, COUNT(*) FROM Schedule s GROUP BY s.frequency");
             if (($row = oci_fetch_row($result)) != false) {
                 echo "<p class = 'sticky'>Active Employee Schedules:" . $row[1] . "</p>";
             } 
+        }
+        //get a schedule by ID
+        else if (array_key_exists('getSchedule' , $_GET)) {
+            $id = $_GET['id'];
+
+
+            $result = $instance->executePlainSQL("SELECT * FROM Schedule WHERE ID = $id");
+            if ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
+                echo "<div class='sticky'>" . "ID: " . $row[0] . "<br>" . "Frequency: " . $row[1] . "<br>" . "Shedule Time: " . $row[2] .  "</div>";
+            } else {
+                echo "<p class = 'sticky'> No schedule by that ID found.</p>";
+
+            }
+
+
         }
 
 
