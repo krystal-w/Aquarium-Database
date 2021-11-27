@@ -84,6 +84,17 @@ span {
     color: rgb(247, 160, 102);
 }
 
+.sticky {
+    position: absolute;
+    top: 92.5%;
+    width: 79.5%;
+    background-color: #ffffffdd;
+    border: 2px solid #0f100f;
+    margin: 0px 10%;
+    padding: 10px 5px;
+
+  }
+
 #content {
     grid-row: 2;
     background-color: #ffffff99;
