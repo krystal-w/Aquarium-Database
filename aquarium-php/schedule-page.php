@@ -155,7 +155,7 @@ function printResult($result)
                         $result = NULL;
 
                         {if (!$select_by_id && !$select_by_freq && !$select_by_time) {
-                            echo "<div class='sticky'> Invalid Query</div>";
+                            // do nothing
 
                         } else if (!$select_by_id && !$select_by_freq && $select_by_time) {
 
