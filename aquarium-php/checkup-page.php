@@ -108,8 +108,8 @@ function printSelectResult($result) {
             <div id="checkup-projection">
                 <h2>Search Checkups</h2>
                 <form method="get" action="checkup-page.php">
-                    <label>Search specific:</label><br>
-                    <label for="field1">Select first search criteria:</label>
+                    <label>Search specific:</label><br><br>
+                    <label for="field1">First search criteria:</label>
                     <select name="field1" id="field1">
                         <option disabled selected value>--Select--</option>
                         <option value="biologist_id">Biologist ID</option>
@@ -117,8 +117,8 @@ function printSelectResult($result) {
                         <option value="type">Type</option>
                     </select>
                     <label for="val1"></label>
-                    <input type="text" id="val1" name="val1"><br>
-                    <label for="field2">Select second search criteria:</label>
+                    <input type="text" id="val1" name="val1"><br><br>
+                    <label for="field2">Second search criteria:</label>
                     <select name="field2" id="field2">
                         <option disabled selected value>--Select--</option>
                         <option value="checkup_date">Date</option>
@@ -126,14 +126,16 @@ function printSelectResult($result) {
                         <option value="priority">Priority</option>
                     </select>
                     <label for="val2"></label>
-                    <input type="text" id="val2" name="val2"><br>
+                    <input type="text" id="val2" name="val2"><br><br>
                     <script>
                         document.getElementById('field2').addEventListener("change", function (e) {
                             if (e.target.value === 'checkup_date') {
                                 document.getElementById('val2').type = 'date';
                             } else if (e.target.value === 'checkup_time'){
                                 document.getElementById('val2').type = 'time';
-                                document.getElementById('val2').step = '1'
+                                document.getElementById('val2').step = '1';
+                            } else {
+                                document.getElementById('val2').type = 'text'
                             }
                         });
                     </script>
@@ -141,7 +143,7 @@ function printSelectResult($result) {
                 </form>
                 <h4>OR</h4>
                 <form method="get" action="checkup-page.php">
-                    <label>Find all:</label>
+                    <label>Find all checkup:</label>
                     <input type="checkbox" id="type" name="checkupAttributes[]" value="type">
                     <label for="type">Type</label>
                     <input type="checkbox" id="date" name="checkupAttributes[]" value="checkup_date">
@@ -151,13 +153,11 @@ function printSelectResult($result) {
                     <div class="divider"></div>
                     <input type="submit" value="Search">
                 </form>
-                <h3>Results</h3>
                 <form>
                     <?php
                     if (isset($_GET)) {
                         if (array_key_exists('field1', $_GET)) {
                             $field1 = $_GET['field1'];
-                            echo "" . $field1 . "";
                             if ($field1 == 'type') {
                                 $field1 = "c.type";
                             }
@@ -175,8 +175,7 @@ function printSelectResult($result) {
                             $result = $manager->executePlainSQL("SELECT * FROM Checkup c, Checkup_Priority cp
                                                                         WHERE $field1 = '" .$val1. "' AND $field2 = " .$val2. " AND c.type = cp.type");
                             printSelectResult($result);
-                        }
-                        if (!empty($_GET['checkupAttributes'])) {
+                        } else if (!empty($_GET['checkupAttributes'])) {
                             $attributes = $_GET['checkupAttributes'];
                             $attr_string = "";
                             $last_el = end($attributes);
@@ -209,7 +208,6 @@ function printSelectResult($result) {
                     <div class="divider"></div>
                     <input type="submit" value="Search">
                 </form>
-                <h3>Results</h3>
                 <form>
                     <?php
                     if (isset($_GET)) {
