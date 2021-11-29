@@ -410,13 +410,13 @@ INSERT INTO Checkup VALUES (9, 'Heart Surgery', TO_DATE('2022-01-23', 'YYYY-MM-D
 INSERT INTO Schedule VALUES (1, 'Weekly', '14:00:00');
 INSERT INTO Schedule VALUES (2, 'Daily', '05:30:00');
 INSERT INTO Schedule VALUES (3, 'Bi-weekly', '05:30:00');
-INSERT INTO Schedule VALUES (4, 'Daily', '06:00:00');
+INSERT INTO Schedule VALUES (4, 'Daily', '06:30:00');
 INSERT INTO Schedule VALUES (5, 'Weekly', '06:30:00');
 INSERT INTO Schedule VALUES (6, 'Daily', '06:30:00');
 INSERT INTO Schedule VALUES (7, 'Weekly', '20:00:00');
 INSERT INTO Schedule VALUES (8, 'Weekly', '21:00:00');
 INSERT INTO Schedule VALUES (9, 'Daily', '21:30:00');
-INSERT INTO Schedule VALUES (10, 'Daily', '22:00:00');
+INSERT INTO Schedule VALUES (10, 'Daily', '06:30:00');
 INSERT INTO Schedule VALUES (11, 'Bi-weekly', '17:00:00');
 INSERT INTO Schedule VALUES (12, 'Bi-weekly', '15:00:00');
 INSERT INTO Schedule VALUES (13, 'Monthly', '22:30:00');

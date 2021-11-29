@@ -4,7 +4,7 @@
 
     <link rel="stylesheet" type="text/css" href="../aquarium-index.css">
     <!-- <link rel="stylesheet" type="text/css" href="../aquarium-css/event-page.css"> -->
-    <title>Schedules</title>
+    <title>Animals</title>
     <style>
         table, th, td {
             border: 1px solid black;
@@ -88,14 +88,13 @@ function printResult($result)
                         <option value="Land_Animal">Land Animals</option>
                     </select>
                     <br><br/>
-                    <br>
                     Primary Query Inputs
                     <select id="primary-input-type" name="primary-input-type">
                         <option value="srch-byID">Animal ID</option>
                         <option value="srch-byEncID">Enclosure ID</option>
                     </select>
                     <input type="number" id="primary-input" name="primary-input">
-                    <br>
+                    <br><br/>
                     Secondary Query Inputs
                     <select id="secondary-input-type" name="secondary-input-type">
                         <option value="srch-byAnimalGroup">Animal Group</option>
@@ -104,9 +103,11 @@ function printResult($result)
                         <option value="srch-byName">Name</option>
                     </select>
                     <input type="text" id="secondary-input" name="secondary-input">
-                    <br>
+                    <br><br/>
+
 
                     <input type="submit" name="seachForAnimal" value="Seach For Animal(s)"></p>
+                    <br/>
                 </form>
 
                 <form>
@@ -122,7 +123,7 @@ function printResult($result)
 
                         $primary_in_state = (!empty($primary_in)) ? true : false;
                         $secondary_in_state = (!empty($secondary_in)) ? true : false;
-                        
+
                         $query = NULL;
 
                         if ($primary_in_state) {
@@ -168,41 +169,41 @@ function printResult($result)
                                     $id_alias = get_animal_id_alias($scope_choice);
                                     $query = $manager->executePlainSQL("SELECT * FROM $scope_choice WHERE $id_alias = $primary_in");
                                 }
-                            } 
+                            }
                             else if ($primary_in_type == "srch-byEncID") {
                                 if ($secondary_in_state) {
                                     if ($secondary_in_type == "srch-byAnimalGroup") {
                                         if ($scope_choice == "Land_Animal") {
-                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Land_Animal la WHERE a.ID = la.animal_id AND a.animal_group = '$secondary_in' AND a.enclosure_id = $primary_in");             
+                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Land_Animal la WHERE a.ID = la.animal_id AND a.animal_group = '$secondary_in' AND a.enclosure_id = $primary_in");
                                         } else if ($scope_choice == "Aquatic_Animal") {
-                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Aquatic_Animal aa WHERE a.ID = aa.animal_id AND a.animal_group = '$secondary_in' AND a.enclosure_id = $primary_in");      
+                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Aquatic_Animal aa WHERE a.ID = aa.animal_id AND a.animal_group = '$secondary_in' AND a.enclosure_id = $primary_in");
                                         } else {
                                             $query = $manager->executePlainSQL("SELECT * FROM Animal WHERE enclosure_id = $primary_in AND animal_group = '$secondary_in'");
                                         }
                                     }
                                     else if ($secondary_in_type == "srch-bySpecies") {
                                         if ($scope_choice == "Land_Animal") {
-                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Land_Animal la WHERE a.ID = la.animal_id AND a.species = '$secondary_in' AND a.enclosure_id = $primary_in");             
+                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Land_Animal la WHERE a.ID = la.animal_id AND a.species = '$secondary_in' AND a.enclosure_id = $primary_in");
                                         } else if ($scope_choice == "Aquatic_Animal") {
-                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Aquatic_Animal aa WHERE a.ID = aa.animal_id AND a.species = '$secondary_in' AND a.enclosure_id = $primary_in");      
+                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Aquatic_Animal aa WHERE a.ID = aa.animal_id AND a.species = '$secondary_in' AND a.enclosure_id = $primary_in");
                                         } else {
                                             $query = $manager->executePlainSQL("SELECT * FROM Animal WHERE enclosure_id = $primary_in AND species = '$secondary_in'");
                                         }
                                     }
                                     else if ($secondary_in_type == "srch-byHealth") {
                                         if ($scope_choice == "Land_Animal") {
-                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Land_Animal la WHERE a.ID = la.animal_id AND a.health = '$secondary_in' AND a.enclosure_id = $primary_in");             
+                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Land_Animal la WHERE a.ID = la.animal_id AND a.health = '$secondary_in' AND a.enclosure_id = $primary_in");
                                         } else if ($scope_choice == "Aquatic_Animal") {
-                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Aquatic_Animal aa WHERE a.ID = aa.animal_id AND a.health = '$secondary_in' AND a.enclosure_id = $primary_in");      
+                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Aquatic_Animal aa WHERE a.ID = aa.animal_id AND a.health = '$secondary_in' AND a.enclosure_id = $primary_in");
                                         } else {
                                             $query = $manager->executePlainSQL("SELECT * FROM Animal WHERE enclosure_id = $primary_in AND health = '$secondary_in'");
                                         }
                                     }
                                     else if ($secondary_in_type == "srch-byName") {
                                         if ($scope_choice == "Land_Animal") {
-                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Land_Animal la WHERE a.ID = la.animal_id AND a.name = '$secondary_in' AND a.enclosure_id = $primary_in");             
+                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Land_Animal la WHERE a.ID = la.animal_id AND a.name = '$secondary_in' AND a.enclosure_id = $primary_in");
                                         } else if ($scope_choice == "Aquatic_Animal") {
-                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Aquatic_Animal aa WHERE a.ID = aa.animal_id AND a.name = '$secondary_in' AND a.enclosure_id = $primary_in");      
+                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Aquatic_Animal aa WHERE a.ID = aa.animal_id AND a.name = '$secondary_in' AND a.enclosure_id = $primary_in");
                                         } else {
                                             $query = $manager->executePlainSQL("SELECT * FROM Animal WHERE enclosure_id = $primary_in AND name = '$secondary_in'");
                                         }
@@ -239,8 +240,9 @@ function printResult($result)
                     }
                     ?>
                 </form>
+                <hr/>
 
-                <h2>Get number of sick animals</h2><br/>
+                <h2>Count the Number of Not Healthy Animals for Each Type of Animals That Has More Than 1 Animal</h2><br/>
                 <form method="GET" action="animal-page.php">
                     <input type="hidden" id="AnimalSickRequest" name="AnimalSickRequest">
 
@@ -250,9 +252,9 @@ function printResult($result)
                         <option value="Land_Animal">Land Animals</option>
                     </select>
 
-                    <input type="submit" name="seachForSickAnimal" value="Check how many sick animals"></p>
+                    <input type="submit" name="seachForSickAnimal" value="Count the Number of Sick Animals!"></p>
                 </form>
-                
+                <br/>
                 <form>
                 <?php
                     if (array_key_exists("seachForSickAnimal", $_GET)) {
@@ -260,17 +262,29 @@ function printResult($result)
 
                         $query = NULL;
                         if ($scope_choice == "Animal") {
-                            $query = $manager->executePlainSQL("SELECT COUNT(*) FROM Animal WHERE health = 'Poor'");
+                            //$query = $manager->executePlainSQL("SELECT COUNT(*) FROM Animal WHERE health = 'Poor'");
+                            $query = $manager->executePlainSQL("SELECT animal_group, COUNT(*) FROM Animal WHERE health <> 'Healthy' GROUP BY animal_group HAVING COUNT(*) > 1");
                         } else if ($scope_choice == "Aquatic_Animal") {
-                            $query = $manager->executePlainSQL("SELECT COUNT(*) FROM Animal a, Aquatic_Animal aa  WHERE a.health = 'Poor' AND a.ID = aa.animal_id");
+                           // $query = $manager->executePlainSQL("SELECT COUNT(*) FROM Animal a, Aquatic_Animal aa  WHERE a.health = 'Poor' AND a.ID = aa.animal_id");
+                            //$query = $manager->executePlainSQL("SELECT COUNT(*) FROM Animal a, Aquatic_Animal aa WHERE a.ID = aa.animal_id GROUP BY health HAVING health <> 'Healthy'");
+                            $query = $manager->executePlainSQL("SELECT animal_group, COUNT(*) FROM Animal a, Aquatic_Animal aa WHERE a.ID = aa.animal_id AND health <> 'Healthy' GROUP BY animal_group HAVING COUNT(*) > 1");
                         } else if ($scope_choice == "Land_Animal") {
-                            $query = $manager->executePlainSQL("SELECT COUNT(*) FROM Animal a, Land_Animal la  WHERE a.health = 'Poor' AND a.ID = la.animal_id");
+                            //$query = $manager->executePlainSQL("SELECT COUNT(*) FROM Animal a, Land_Animal la  WHERE a.health = 'Poor' AND a.ID = la.animal_id");
+                            //$query = $manager->executePlainSQL("SELECT COUNT(*) FROM Animal a, Land_Animal la WHERE a.ID = la.animal_id GROUP BY health HAVING health <> 'Healthy'");
+                            $query = $manager->executePlainSQL("SELECT animal_group, COUNT(*) FROM Animal a, Land_Animal la WHERE a.ID = la.animal_id AND health <> 'Healthy' GROUP BY animal_group HAVING COUNT(*) > 1");
                         }
 
 
                         if ($query != NULL) {
-                            $row = oci_fetch_row($query);
-                            echo "Number of sick animals in scope: ".$row[0];
+                            echo "<table>";
+                            echo "<tr><th>Animal Group</th><th>Number of Animals With Poor Health</th></tr>";
+
+                            while ($row = OCI_Fetch_Array($query, OCI_BOTH)) {
+                                echo "<tr><td>" . $row[0] . "</td><td>" . $row[1] . "</td></tr>"; //or just use "echo $row[0]"
+                        //        echo $row[0];
+                            }
+
+                            echo "</table>";
                         } 
 
                     }
