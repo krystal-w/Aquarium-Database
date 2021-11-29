@@ -220,7 +220,7 @@ function printSelectResult($result) {
                                 $tuple
                             );
                             echo "Biologist(s) conducting $priority priority checkups:<br>";
-                            $result = $manager->executeBoundSQL("SELECT e.first_name, e.last_name, b.specialty
+                            $result = $manager->executeBoundSQL("SELECT DISTINCT e.first_name, e.last_name, b.specialty
                                                 FROM Biologist b, Checkup c, Checkup_Priority cp, Employee e
                                                 WHERE b.employee_id = e.id AND c.biologist_id = b.employee_id AND c.type = cp.type AND cp.priority = :priority", $all_tuples);
                             printPriorityResult($result);

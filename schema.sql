@@ -403,9 +403,9 @@ INSERT INTO Checkup VALUES (3, 'Swim Rehab', TO_DATE('2022-02-11', 'YYYY-MM-DD')
 INSERT INTO Checkup VALUES (4, 'Pregnancy Checkup', TO_DATE('2022-02-11', 'YYYY-MM-DD'), '13:15:00', 2, 2);
 INSERT INTO Checkup VALUES (5, 'Artificial Fin Attachment Surgery', TO_DATE('2022-01-23', 'YYYY-MM-DD'), '09:30:00', 1, 3);
 INSERT INTO Checkup VALUES (6, 'Regular Checkup', TO_DATE('2021-12-01', 'YYYY-MM-DD'), '10:30:00', 6, 6);
-INSERT INTO Checkup VALUES (7, 'Pregnancy Checkup', TO_DATE('2021-12-01', 'YYYY-MM-DD'), '2:00:00', 7, 8);
-INSERT INTO Checkup VALUES (8, 'Swim Rehab', TO_DATE('2022-02-11', 'YYYY-MM-DD'), '14:15:00', 2, 1);
-INSERT INTO Checkup VALUES (9, 'Heart Surgery', TO_DATE('2022-01-23', 'YYYY-MM-DD'), '15:15:00', 1, 3);
+INSERT INTO Checkup VALUES (7, 'Pregnancy Checkup', TO_DATE('2021-12-01', 'YYYY-MM-DD'), '02:00:00', 7, 8);
+INSERT INTO Checkup VALUES (8, 'Regular Checkup', TO_DATE('2022-02-11', 'YYYY-MM-DD'), '14:15:00', 2, 1);
+INSERT INTO Checkup VALUES (9, 'Heart Surgery', TO_DATE('2022-01-23', 'YYYY-MM-DD'), '15:15:00', 4, 5);
 
 INSERT INTO Schedule VALUES (1, 'Weekly', '14:00:00');
 INSERT INTO Schedule VALUES (2, 'Daily', '05:30:00');
@@ -428,6 +428,9 @@ INSERT INTO Feeding_Schedule VALUES (2, 'Feeder fish');
 INSERT INTO Feeding_Schedule VALUES (3, 'Flake food');
 INSERT INTO Feeding_Schedule VALUES (4, 'Feeder fish');
 INSERT INTO Feeding_Schedule VALUES (5, 'Crabs');
+INSERT INTO Feeding_Schedule VALUES (11, 'Clams');
+INSERT INTO Feeding_Schedule VALUES (12, 'Feeder fish');
+INSERT INTO Feeding_Schedule VALUES (13, 'Flake food');
 INSERT INTO Feeding_Schedule VALUES (14, 'Flake food');
 INSERT INTO Feeding_Schedule VALUES (15, 'Crabs');
 
@@ -436,9 +439,6 @@ INSERT INTO Cleaning_Schedule VALUES (7, 2);
 INSERT INTO Cleaning_Schedule VALUES (8, 3);
 INSERT INTO Cleaning_Schedule VALUES (9, 4);
 INSERT INTO Cleaning_Schedule VALUES (10, 5);
-INSERT INTO Cleaning_Schedule VALUES (11, 6);
-INSERT INTO Cleaning_Schedule VALUES (12, 7);
-INSERT INTO Cleaning_Schedule VALUES (13, 2);
 
 INSERT INTO Leads VALUES (1, 3);
 INSERT INTO Leads VALUES (1, 5);
@@ -489,6 +489,11 @@ INSERT INTO Is_For VALUES (3, 2);
 INSERT INTO Is_For VALUES (5, 3);
 INSERT INTO Is_For VALUES (7, 4);
 INSERT INTO Is_For VALUES (10, 5);
+INSERT INTO Is_For VALUES (8, 11);
+INSERT INTO Is_For VALUES (1, 12);
+INSERT INTO Is_For VALUES (5, 13);
+INSERT INTO Is_For VALUES (6, 14);
+INSERT INTO Is_For VALUES (10, 15);
 
 INSERT INTO Is_Assigned VALUES (1, 10);
 INSERT INTO Is_Assigned VALUES (2, 8);
