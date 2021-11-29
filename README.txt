@@ -1,0 +1,1 @@
+SELECTION queries are separated into each different page of the interface as per what we had asked in our email and received confirmation for.
