@@ -155,7 +155,7 @@ function printResult($result)
                         $result = NULL;
 
                         {if (!$select_by_id && !$select_by_freq && !$select_by_time) {
-                            echo "<div class='sticky'> Invalid Query</div>";
+                            // do nothing
 
                         } else if (!$select_by_id && !$select_by_freq && $select_by_time) {
 
@@ -231,65 +231,6 @@ function printResult($result)
                         }}
 
                         printResult($result);
-
-
-                        /*if ($scope_choice == "Schedule") {
-                            echo "<table>";
-                            echo "<tr><th>Event ID</th><th>Frequency</th><th>Schdule Time</th></tr>";
-
-                            while ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
-                                echo "<tr><td>" . $row['ID'] . "</td><td>" . $row['FREQUENCY'] . "</td><td>" . $row['SCHEDULE_TIME'] . "</td></tr>"; //or just use "echo $row[0]"
-                        //        echo $row[0];
-                            }
-
-                            echo "</table>";
-
-                        } else if ($scope_choice == "Feeding_Schedule") {
-                            echo "<table>";
-                            echo "<tr><th>Event ID</th><th>Frequency</th><th>Schdule Time</th></tr>";
-
-                            while ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
-                                echo "<tr><td>" . $row['ID'] . "</td><td>" . $row['FREQUENCY'] . "</td><td>" . $row['SCHEDULE_TIME'] . "</td></tr>"; //or just use "echo $row[0]"
-                        //        echo $row[0];
-                            }
-
-                            echo "</table>";
-
-                        }
-
-
-
-
-
-
-
-                        /*if ($result != NULL) {
-                            $output = "";
-                            if ($scope_choice == "Schedule") {
-                                $output .= "<div class='sticky'><b>Schedules</b><br><br>";
-
-                            } else if ($scope_choice == "Feeding_Schedule") {
-                                $output .= "<div class='sticky'><b>Feeding Schedules</b><br><br>";
-
-                            } else if ($scope_choice == "Cleaning_Schedule") {
-                                $output .= "<div class='sticky'><b>Cleaning Schedules</b><br><br>";
-                            }
-                            while ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
-                                if ($scope_choice == "Schedule") {
-                                    $output .= "<b>ID:</b> " . $row[0] . "&emsp;" . "<b>Frequency:</b> " . $row[1] . "&emsp;" . "<b>Schedule Time:</b> " . $row[2] . "<br>";
-                                } else if ($scope_choice == "Feeding_Schedule") {
-                                    if ($feed = OCI_Fetch_Array($instance->executePlainSQL("SELECT * FROM Feeding_Schedule WHERE schedule_id = $row[0]"), OCI_BOTH)) {
-                                        $output .= "<b>ID:</b> " . $row[0] . "&emsp;" . "<b>Frequency:</b> " . $row[1] . "&emsp;" . "<b>Schedule Time:</b> " . $row[2] . "&emsp;" . "<b>Food Type:</b> " . $feed[1] . "<br>";
-                                    }
-                                } else if ($scope_choice == "Cleaning_Schedule") {
-                                    if ($cleaning = OCI_Fetch_Array($instance->executePlainSQL("SELECT * FROM Cleaning_Schedule WHERE schedule_id = $row[0]"), OCI_BOTH)) {
-                                        $output .= "<b>ID:</b> " . $row[0] . "&emsp;" . "<b>Frequency:</b> " . $row[1] . "&emsp;" . "<b>Schedule Time:</b> " . $row[2] . "&emsp;" . "<b>Enclosure ID:</b> " . $cleaning[1] . "<br>";
-                                    }
-                                }
-                            }
-                            $output .= "</div>";
-                            echo $output;
-                        }*/
 
                     }
 
