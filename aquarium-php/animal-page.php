@@ -240,6 +240,46 @@ function printResult($result)
                     ?>
                 </form>
 
+                <h2>Get number of sick animals</h2><br/>
+                <form method="GET" action="animal-page.php">
+                    <input type="hidden" id="AnimalSickRequest" name="AnimalSickRequest">
+
+                    <select id="animal-input-type" name="animal-input-type">
+                        <option value="Animal">Animals</option>
+                        <option value="Aquatic_Animal">Aquatic Animals</option>
+                        <option value="Land_Animal">Land Animals</option>
+                    </select>
+
+                    <input type="submit" name="seachForSickAnimal" value="Check how many sick animals"></p>
+                </form>
+                
+                <form>
+                <?php
+                    if (array_key_exists("seachForSickAnimal", $_GET)) {
+                        $scope_choice = $_GET["animal-input-type"];
+
+                        $query = NULL;
+                        if ($scope_choice == "Animal") {
+                            $query = $manager->executePlainSQL("SELECT COUNT(*) FROM Animal WHERE health = 'Poor'");
+                        } else if ($scope_choice == "Aquatic_Animal") {
+                            $query = $manager->executePlainSQL("SELECT COUNT(*) FROM Animal a, Aquatic_Animal aa  WHERE a.health = 'Poor' AND a.ID = aa.animal_id");
+                        } else if ($scope_choice == "Land_Animal") {
+                            $query = $manager->executePlainSQL("SELECT COUNT(*) FROM Animal a, Land_Animal la  WHERE a.health = 'Poor' AND a.ID = la.animal_id");
+                        }
+
+
+                        if ($query != NULL) {
+                            $row = oci_fetch_row($query);
+                            echo "Number of sick animals in scope: ".$row[0];
+                        } 
+
+                    }
+
+
+                ?>
+                </form>
+
+
 
             </div>
 
