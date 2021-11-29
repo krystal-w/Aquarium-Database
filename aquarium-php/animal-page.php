@@ -130,36 +130,36 @@ function printResult($result)
                                 if ($secondary_in_state) {
                                     if ($secondary_in_type == "srch-byAnimalGroup") {
                                         if ($scope_choice == "Land_Animal") {
-                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Land_Animal la WHERE a.ID = la.animal_id AND a.animal_group = '$secondary_in'");
+                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Land_Animal la WHERE a.ID = la.animal_id AND a.animal_group = '$secondary_in' AND a.ID = $primary_in");
                                         } else if ($scope_choice == "Aquatic_Animal") {
-                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Aquatic_Animal aa WHERE a.ID = aa.animal_id AND a.animal_group = '$secondary_in'");
+                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Aquatic_Animal aa WHERE a.ID = aa.animal_id AND a.animal_group = '$secondary_in' AND a.ID = $primary_in");
                                         } else {
                                             $query = $manager->executePlainSQL("SELECT * FROM $scope_choice WHERE ID = $primary_in AND animal_group = '$secondary_in'");
                                         }
                                     }
                                     else if ($secondary_in_type == "srch-bySpecies") {
                                         if ($scope_choice == "Land_Animal") {
-                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Land_Animal la WHERE a.ID = la.animal_id AND a.species = '$secondary_in'");
+                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Land_Animal la WHERE a.ID = la.animal_id AND a.species = '$secondary_in' AND a.ID = $primary_in");
                                         } else if ($scope_choice == "Aquatic_Animal") {
-                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Aquatic_Animal aa WHERE a.ID = aa.animal_id AND a.species = '$secondary_in'");
+                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Aquatic_Animal aa WHERE a.ID = aa.animal_id AND a.species = '$secondary_in' AND a.ID = $primary_in");
                                         } else {
                                             $query = $manager->executePlainSQL("SELECT * FROM $scope_choice WHERE ID = $primary_in AND species = '$secondary_in'");
                                         }
                                     }
                                     else if ($secondary_in_type == "srch-byHealth") {
                                         if ($scope_choice == "Land_Animal") {
-                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Land_Animal la WHERE a.ID = la.animal_id AND a.health = '$secondary_in'");
+                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Land_Animal la WHERE a.ID = la.animal_id AND a.health = '$secondary_in' AND a.ID = $primary_in");
                                         } else if ($scope_choice == "Aquatic_Animal") {
-                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Aquatic_Animal aa WHERE a.ID = aa.animal_id AND a.health = '$secondary_in'");
+                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Aquatic_Animal aa WHERE a.ID = aa.animal_id AND a.health = '$secondary_in' AND a.ID = $primary_in");
                                         } else {
                                             $query = $manager->executePlainSQL("SELECT * FROM $scope_choice WHERE ID = $primary_in AND health = '$secondary_in'");
                                         }
                                     }
                                     else if ($secondary_in_type == "srch-byName") {
                                         if ($scope_choice == "Land_Animal") {
-                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Land_Animal la WHERE a.ID = la.animal_id AND a.name = '$secondary_in'");
+                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Land_Animal la WHERE a.ID = la.animal_id AND a.name = '$secondary_in' AND a.ID = $primary_in");
                                         } else if ($scope_choice == "Aquatic_Animal") {
-                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Aquatic_Animal aa WHERE a.ID = aa.animal_id AND a.name = '$secondary_in'");
+                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Aquatic_Animal aa WHERE a.ID = aa.animal_id AND a.name = '$secondary_in' AND a.ID = $primary_in");
                                         } else {
                                             $query = $manager->executePlainSQL("SELECT * FROM $scope_choice WHERE ID = $primary_in AND name = '$secondary_in'");
                                         }
@@ -170,7 +170,52 @@ function printResult($result)
                                 }
                             } 
                             else if ($primary_in_type == "srch-byEncID") {
-
+                                if ($secondary_in_state) {
+                                    if ($secondary_in_type == "srch-byAnimalGroup") {
+                                        if ($scope_choice == "Land_Animal") {
+                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Land_Animal la WHERE a.ID = la.animal_id AND a.animal_group = '$secondary_in' AND a.enclosure_id = $primary_in");             
+                                        } else if ($scope_choice == "Aquatic_Animal") {
+                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Aquatic_Animal aa WHERE a.ID = aa.animal_id AND a.animal_group = '$secondary_in' AND a.enclosure_id = $primary_in");      
+                                        } else {
+                                            $query = $manager->executePlainSQL("SELECT * FROM Animal WHERE enclosure_id = $primary_in AND animal_group = '$secondary_in'");
+                                        }
+                                    }
+                                    else if ($secondary_in_type == "srch-bySpecies") {
+                                        if ($scope_choice == "Land_Animal") {
+                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Land_Animal la WHERE a.ID = la.animal_id AND a.species = '$secondary_in' AND a.enclosure_id = $primary_in");             
+                                        } else if ($scope_choice == "Aquatic_Animal") {
+                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Aquatic_Animal aa WHERE a.ID = aa.animal_id AND a.species = '$secondary_in' AND a.enclosure_id = $primary_in");      
+                                        } else {
+                                            $query = $manager->executePlainSQL("SELECT * FROM Animal WHERE enclosure_id = $primary_in AND species = '$secondary_in'");
+                                        }
+                                    }
+                                    else if ($secondary_in_type == "srch-byHealth") {
+                                        if ($scope_choice == "Land_Animal") {
+                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Land_Animal la WHERE a.ID = la.animal_id AND a.health = '$secondary_in' AND a.enclosure_id = $primary_in");             
+                                        } else if ($scope_choice == "Aquatic_Animal") {
+                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Aquatic_Animal aa WHERE a.ID = aa.animal_id AND a.health = '$secondary_in' AND a.enclosure_id = $primary_in");      
+                                        } else {
+                                            $query = $manager->executePlainSQL("SELECT * FROM Animal WHERE enclosure_id = $primary_in AND health = '$secondary_in'");
+                                        }
+                                    }
+                                    else if ($secondary_in_type == "srch-byName") {
+                                        if ($scope_choice == "Land_Animal") {
+                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Land_Animal la WHERE a.ID = la.animal_id AND a.name = '$secondary_in' AND a.enclosure_id = $primary_in");             
+                                        } else if ($scope_choice == "Aquatic_Animal") {
+                                            $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Aquatic_Animal aa WHERE a.ID = aa.animal_id AND a.name = '$secondary_in' AND a.enclosure_id = $primary_in");      
+                                        } else {
+                                            $query = $manager->executePlainSQL("SELECT * FROM Animal WHERE enclosure_id = $primary_in AND name = '$secondary_in'");
+                                        }
+                                    }
+                                } else {
+                                    if ($scope_choice == "Land_Animal") {
+                                        $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Land_Animal la WHERE a.enclosure_id = $primary_in AND a.ID = la.animal_id");
+                                    } else if ($scope_choice == "Aquatic_Animal") {
+                                        $query = $manager->executePlainSQL("SELECT a.ID, a.name, a.enclosure_id, a.animal_group, a.species, a.health FROM Animal a, Aquatic_Animal aa WHERE a.enclosure_id = $primary_in AND a.ID = aa.animal_id");
+                                    } else {
+                                        $query = $manager->executePlainSQL("SELECT * FROM Animal WHERE enclosure_id = $primary_in");
+                                    }
+                                }
 
                             }
                         } else {
@@ -192,12 +237,6 @@ function printResult($result)
 
 
                     }
-
-
-
-
-
-
                     ?>
                 </form>
 
