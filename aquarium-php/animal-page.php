@@ -242,7 +242,7 @@ function printResult($result)
                 </form>
                 <hr/>
 
-                <h2>Count the Number of Sick Animals for Each Type of Animals That Has More Than 1 Animal</h2><br/>
+                <h2>Count the Number of Not Healthy Animals for Each Type of Animals That Has More Than 1 Animal</h2><br/>
                 <form method="GET" action="animal-page.php">
                     <input type="hidden" id="AnimalSickRequest" name="AnimalSickRequest">
 
