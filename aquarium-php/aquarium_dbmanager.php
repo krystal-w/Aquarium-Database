@@ -20,7 +20,7 @@ final class DataManager
     }
 
     private function __construct() {
-        $this->conn = OCILogon("ora_jlacsama", "a65495079", "dbhost.students.cs.ubc.ca:1522/stu"); // Just for local testing; pls change back upon push to master
+        $this->conn = OCILogon("ora_kwong134", "a47887872", "dbhost.students.cs.ubc.ca:1522/stu"); // Just for local testing; pls change back upon push to master
         //replace these with your own oracle account
     }
 

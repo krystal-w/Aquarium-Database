@@ -1,6 +1,5 @@
-# Project Team 90
-
-### Aquarium Management Database
+# Aquarium Management Database
+Created by Krystal Wong, Mea Srisan, and Jacob Lacsamana.
 
 This database models a mini aquarium system.
 
@@ -11,4 +10,6 @@ animal health checkups conducted by biologists working at the aquarium. This sys
 at the aquarium, including events specifically booked by a customer, and which animals and staff are participating in those events.
 
 ## Getting Started 
-WIP
+WIP  
+(Note: currently only works on the school servers  
+TODO: create local access through MySQL connection)

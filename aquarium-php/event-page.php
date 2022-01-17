@@ -8,7 +8,7 @@
     <style>
         table, th, td {
         border:1px solid black;
-        padding: 2;
+        padding: 2px;
         }
     </style>
 
@@ -79,10 +79,14 @@ function printResult($result)
                 <h2>Create Event</h2>
                 <form method="POST" action="event-page.php"> <!--refresh page when submitted-->
                     <input type="hidden" id="insertEvent" name="insertEvent">
-                    Event Name: <input type="text" name="eventName"> <br/><br/>
-                    Date: <input type="date" name="eventDate"> <br/><br/>
-                    Start Time: <input type="time" name="startTime" step="1"> <br/><br/>
-                    End Time: <input type="time" name="endTime" step="1"> <br/><br/>
+                    <label for="eventName">Event Name:</label>
+                    <input type="text" id="eventName" name="eventName"> <br/><br/>
+                    <label for="eventDate">Date:</label>
+                    <input type="date" id="eventDate" name="eventDate"> <br/><br/>
+                    <label for="startTime">Start Time:</label>
+                    <input type="time" id="startTime" name="startTime" step="1"> <br/><br/>
+                    <label for="endTime">End Time:</label>
+                    <input type="time" id="endTime" name="endTime" step="1"> <br/><br/>
 
                     <input type="submit" value="Insert" name="insertSubmit">
 
@@ -233,7 +237,14 @@ function printResult($result)
 
                     if (array_key_exists('aggSubmit', $_GET)) {
 
-                        $result = $manager->executePlainSQL("SELECT e.event_date, avg(c.group_size) as AverageGroupSize FROM Event e, Customer_Event c WHERE e.ID = c.event_id GROUP BY e.event_date HAVING avg(c.group_size) >= ALL(SELECT avg(c1.group_size) FROM Event e1, Customer_Event c1 WHERE e1.ID = c1.event_id GROUP BY e1.event_date)");
+                        $result = $manager->executePlainSQL("SELECT e.event_date, avg(c.group_size) as AverageGroupSize 
+                                                                    FROM Event e, Customer_Event c 
+                                                                    WHERE e.ID = c.event_id 
+                                                                    GROUP BY e.event_date 
+                                                                    HAVING avg(c.group_size) >= ALL(SELECT avg(c1.group_size) 
+                                                                                                    FROM Event e1, Customer_Event c1 
+                                                                                                    WHERE e1.ID = c1.event_id 
+                                                                                                    GROUP BY e1.event_date)");
 
                         echo "<table>";
                         echo "<tr><th>Event Date</th><th>Average Group Size</th></tr>";
@@ -266,7 +277,7 @@ function printResult($result)
                     Event Date: <input type="date" name="eventDateSearch"> <br/><br/>
                     <input type="submit" value="Search" name="searchSubmit">
                 </form>
-
+                <form>
                 <?php
 
                 if (array_key_exists('searchSubmit', $_GET)) {
